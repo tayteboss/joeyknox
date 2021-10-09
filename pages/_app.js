@@ -1,0 +1,42 @@
+import { useState } from 'react';
+import SiteOptionsProvider from '../components/common/SiteOptionsProvider';
+import { ApolloProvider } from '@apollo/client';
+import client from '../lib/source/prismic/apolloClient';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../styles/theme';
+import { DefaultSeo } from 'next-seo';
+import { GlobalStyles } from '../styles/global';
+import Layout from '../components/common/Layout';
+import Head from '../components/common/Head';
+import { getSiteOptions } from '../lib/source/prismic/api';
+
+const WebApp = ({ Component, pageProps }) => {
+	const [siteOptions] = useState(pageProps.options);
+
+	return (
+		<ThemeProvider theme={theme}>
+			<ApolloProvider client={client}>
+				<SiteOptionsProvider value={siteOptions}>
+					<Head />
+					<DefaultSeo />
+					<GlobalStyles />
+					<Layout siteOptions={pageProps.options}>
+						<Component {...pageProps} />
+					</Layout>
+				</SiteOptionsProvider>
+			</ApolloProvider>
+		</ThemeProvider>
+	);
+};
+
+WebApp.getInitialProps = async () => {
+	const options = await getSiteOptions();
+
+	return {
+		pageProps: {
+			options
+		}
+	};
+};
+
+export default WebApp;
