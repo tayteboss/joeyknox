@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SiteOptionsProvider from '../components/common/SiteOptionsProvider';
 import { ApolloProvider } from '@apollo/client';
 import client from '../lib/source/prismic/apolloClient';
@@ -12,6 +12,13 @@ import { getSiteOptions } from '../lib/source/prismic/api';
 
 const WebApp = ({ Component, pageProps }) => {
 	const [siteOptions] = useState(pageProps.options);
+
+	useEffect(() => {
+		if ('scrollRestoration' in history) {
+			history.scrollRestoration = 'manual';
+		}
+		window.scrollTo(0, 0);
+	}, []);
 
 	return (
 		<ThemeProvider theme={theme}>

@@ -152,6 +152,18 @@ export const GlobalStyles = createGlobalStyle`
 		}
 	}
 
+	.no-scroll
+	{
+		overflow: hidden;
+	}
+
+	.gear-list-open
+	{
+		filter: brightness(40%);
+
+		transition: all ${theme.transitionSpeed.slow} ease;
+	}
+
 	/* Resets */
 
 	*
@@ -175,7 +187,7 @@ export const GlobalStyles = createGlobalStyle`
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: antialiased;
 		font-smooth: antialiased;
-		/* cursor: none; */
+		cursor: none;
 
 		transition: all 300ms ease;
 
@@ -215,11 +227,11 @@ export const GlobalStyles = createGlobalStyle`
 	{
 		color: ${props => props.theme.colours.black};
 		text-decoration: none;
-		/* cursor: none; */
+		cursor: none;
 
 		&:hover
 		{
-			/* cursor: none; */
+			cursor: none;
 
 			@media ${theme.mediaBreakpoints.mobile}
 			{
@@ -230,14 +242,14 @@ export const GlobalStyles = createGlobalStyle`
 
 	button
 	{
-		/* cursor: none; */
+		cursor: none;
 		background: none;
 		outline: none;
 		border: none;
 
 		&:hover
 		{
-			/* cursor: none; */
+			cursor: none;
 
 			@media ${theme.mediaBreakpoints.mobile}
 			{

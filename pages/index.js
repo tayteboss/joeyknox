@@ -11,7 +11,7 @@ const Home = ({ options }) => {
 	return (
 		<HomeWrapper>
 			<IntroMenu data={options} />
-			<IntroShowreel />
+			<IntroShowreel data={options} />
 		</HomeWrapper>
 	);
 };
