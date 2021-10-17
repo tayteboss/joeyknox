@@ -12,7 +12,7 @@ const IntroShowreelWrapper = styled(motion.section)`
 
 	@media ${props => props.theme.mediaBreakpoints.mobile}
 	{
-		margin-top: 240px;
+		padding-top: 200px;
 	}
 
 	video

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Cursor from '../elements/Cursor';
 import GearListPanel from '../elements/GearListPanel';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 const Main = styled(motion.main)`
 	transition: filter 1000ms ease;
@@ -15,18 +16,21 @@ const variants = {
 	visible: { opacity: 1 }
 };
 
-export default function Layout({ children, siteOptions }) {
+export default function Layout({ children, siteOptions, work }) {
 	const [gearListPanelOpen, setGearListPanelOpen] = useState(false);
+	const router = useRouter();
 
 	useEffect(() => {
-		const body = document.querySelector('html');
-
-		body.classList.add('no-scroll');
-
-		setTimeout(() => {
-			body.classList.remove('no-scroll');
-		}, 4500);
-	}, []);
+		if (router.asPath === "/") {
+			const body = document.querySelector('html');
+	
+			body.classList.add('no-scroll');
+	
+			setTimeout(() => {
+				body.classList.remove('no-scroll');
+			}, 4500);
+		}
+	}, [router.asPath]);
 
 	const handleGearListPanelOpen = () => {
 		setGearListPanelOpen(true);
@@ -51,7 +55,7 @@ export default function Layout({ children, siteOptions }) {
 	return (
 		<>
 			<Cursor />
-			<Header />
+			<Header siteOptions={siteOptions} work={work} />
 			<Main
 				initial="hidden"
 				animate="visible"

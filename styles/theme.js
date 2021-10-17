@@ -13,7 +13,7 @@ export const theme = {
 		h4: '1.778rem',
 		h3: '2.222rem',
 		h2: '5.111rem',
-		h1: '7.333rem',
+		h1: '7.333rem'
 	},
 	sizeTablet: {
 		h6: '1.333rem',
@@ -21,7 +21,7 @@ export const theme = {
 		h4: '1.778rem',
 		h3: '2.222rem',
 		h2: '5.111rem',
-		h1: '7.333rem',
+		h1: '7.333rem'
 	},
 	sizeMobile: {
 		h6: '1.333rem',
@@ -29,7 +29,7 @@ export const theme = {
 		h4: '1.778rem',
 		h3: '2.222rem',
 		h2: '5.111rem',
-		h1: '7.333rem',
+		h1: '7.333rem'
 	},
 	mediaBreakpoints: {
 		desktop: '(min-width: 1680px)',
@@ -45,6 +45,6 @@ export const theme = {
 	transitionSpeed: {
 		default: '300ms',
 		fast: '200ms',
-		slow: '1000ms'
+		slow: '800ms'
 	}
 };

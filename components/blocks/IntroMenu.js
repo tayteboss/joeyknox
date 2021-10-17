@@ -8,12 +8,14 @@ import { motion } from 'framer-motion';
 const IntroMenuWrapper = styled(motion.div)`
 	position: fixed;
 	bottom: calc(100vh - 255px);
-	display: ${props => props.hasScrolled ? 'none' : 'block'};
+	/* opacity: ${props => props.hasScrolled ? '0' : '1'};
+	visibility: ${props => props.hasScrolled ? 'hidden' : 'visible'}; */
 	background: ${props => props.theme.colours.white};
+	z-index: 3;
 
 	@media ${props => props.theme.mediaBreakpoints.mobile}
 	{
-		bottom: calc(100vh - 225px);
+		bottom: calc(100vh - 185px);
 	}
 `;
 
@@ -87,7 +89,7 @@ const IntroMenu = ({ data }) => {
 	const [hasScrolled, setHasScrolled] = useState(false);
 
 	const handleScroll = () => {
-		if (window.scrollY > 200) {
+		if (window.scrollY > 500) {
 			setHasScrolled(true);
 		} else {
 			setHasScrolled(false);

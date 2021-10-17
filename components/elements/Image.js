@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useInView } from 'react-intersection-observer';
 
 const ImageTag = styled.img`
 	object-fit: cover;
@@ -7,7 +8,22 @@ const ImageTag = styled.img`
 `;
 
 const Image = ({ src, alt }) => {
-	return <ImageTag className="image-tag" src={src} alt={alt} />;
+	const { ref, inView } = useInView({
+		triggerOnce: true,
+		threshold: 0.2,
+		rootMargin: '-15%'
+	});
+
+	return (
+		<ImageTag
+			ref={ref}
+			className={`image-tag cursor-link view-element-bottom-top ${
+				inView ? 'view-element-bottom-top--in-view' : ''
+			}`}
+			src={src}
+			alt={alt}
+		/>
+	);
 };
 
 export default Image;

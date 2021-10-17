@@ -8,7 +8,7 @@ import { DefaultSeo } from 'next-seo';
 import { GlobalStyles } from '../styles/global';
 import Layout from '../components/common/Layout';
 import Head from '../components/common/Head';
-import { getSiteOptions } from '../lib/source/prismic/api';
+import { getAllWork, getSiteOptions } from '../lib/source/prismic/api';
 
 const WebApp = ({ Component, pageProps }) => {
 	const [siteOptions] = useState(pageProps.options);
@@ -27,7 +27,10 @@ const WebApp = ({ Component, pageProps }) => {
 					<Head />
 					<DefaultSeo />
 					<GlobalStyles />
-					<Layout siteOptions={pageProps.options}>
+					<Layout
+						siteOptions={pageProps.options}
+						work={pageProps.work}
+					>
 						<Component {...pageProps} />
 					</Layout>
 				</SiteOptionsProvider>
@@ -38,10 +41,12 @@ const WebApp = ({ Component, pageProps }) => {
 
 WebApp.getInitialProps = async () => {
 	const options = await getSiteOptions();
+	const work = await getAllWork();
 
 	return {
 		pageProps: {
-			options
+			options,
+			work
 		}
 	};
 };

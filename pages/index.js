@@ -6,8 +6,6 @@ import IntroShowreel from '../components/blocks/IntroShowreel';
 const HomeWrapper = styled.div``;
 
 const Home = ({ options }) => {
-	console.log('options', options);
-
 	return (
 		<HomeWrapper>
 			<IntroMenu data={options} />

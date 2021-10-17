@@ -3,9 +3,11 @@ import Grid from '../elements/Grid';
 import InnerWrapper from '../elements/InnerWrapper';
 
 const FooterWrapper = styled.footer`
-	height: calc(100vh - 43px);
+	height: calc(100vh - 55px);
 	background: ${props => props.theme.colours.black};
 	color: ${props => props.theme.colours.white};
+	position: relative;
+	z-index: 5;
 
 	transition: filter ${props => props.theme.transitionSpeed.slow} ease;
 
