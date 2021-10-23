@@ -17,7 +17,7 @@ const Image = ({ src, alt }) => {
 	return (
 		<ImageTag
 			ref={ref}
-			className={`image-tag cursor-link view-element-bottom-top ${
+			className={`image-tag view-element-bottom-top ${
 				inView ? 'view-element-bottom-top--in-view' : ''
 			}`}
 			src={src}

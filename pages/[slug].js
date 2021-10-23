@@ -42,7 +42,7 @@ const Date = styled.p`
 `;
 
 const CreditsTrigger = styled.p`
-	grid-column: 5 / -1;
+	grid-column: 5 / 6;
 	color: ${props => props.theme.colours.grey};
 
 	transition: all ${props => props.theme.transitionSpeed.default} ease;
@@ -149,7 +149,16 @@ const WorkIndexTitle = styled.p`
 
 const WorkList = styled.div``;
 
-const WorkItem = styled.a``;
+const WorkItem = styled.a`
+	color: ${props => props.isWorkIndexHovered ? props.theme.colours.grey : props.theme.colours.black};
+
+	transition: all ${props => props.theme.transitionSpeed.default} ease;
+
+	&:hover
+	{
+		color: ${props => props.theme.colours.black};
+	}
+`;
 
 const CreditsOverlay = styled.div`
 	position: fixed;
@@ -164,6 +173,7 @@ const CreditsOverlay = styled.div`
 	backdrop-filter: ${props => props.isOpen ? 'blur(10px)' : 'blur(0)'};
 	opacity: ${props => props.isOpen ? 1 : 0};
 	visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+	overflow-y: scroll;
 
 	transition: all ${props => props.theme.transitionSpeed.slow} ease;
 `;
@@ -195,6 +205,7 @@ const Name = styled.p`
 
 export default function Page({ data, work }) {
 	const [isOpen, setIsOpen] = useState(false);
+	const [isWorkIndexHovered, setIsWorkIndexHovered] = useState(false);
 
 	const { ref, inView } = useInView({
 		triggerOnce: true,
@@ -241,7 +252,7 @@ export default function Page({ data, work }) {
 					{data.vimeo_embed && (
 						<VideoWrapper
 							ref={ref}
-							className={`cursor-link view-element-bottom-top ${
+							className={`cursor-hide view-element-bottom-top ${
 								inView ? 'view-element-bottom-top--in-view' : ''
 							}`}
 						>
@@ -281,7 +292,16 @@ export default function Page({ data, work }) {
 									passHref
 									href={item.node._meta.uid}
 								>
-									<WorkItem className="cursor-link">
+									<WorkItem
+										className="cursor-link"
+										onMouseOver={() =>
+											setIsWorkIndexHovered(true)
+										}
+										onMouseOut={() =>
+											setIsWorkIndexHovered(false)
+										}
+										isWorkIndexHovered={isWorkIndexHovered}
+									>
 										{item.node.title},{' '}
 									</WorkItem>
 								</Link>

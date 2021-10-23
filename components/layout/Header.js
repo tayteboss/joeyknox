@@ -20,6 +20,7 @@ const HeaderWrapper = styled(motion.header)`
 
 const Link = styled.a`
 	pointer-events: all;
+	display: inline;
 `;
 
 const Logo = styled.img`
@@ -129,8 +130,9 @@ const WorkList = styled(motion.div)`
 	max-width: 430px;
 `;
 
-const WorkItem = styled(motion.a)`
+const WorkItem = styled(motion.p)`
 	color: ${props => props.theme.colours.grey};
+	display: inline;
 
 	transition: all ${props => props.theme.transitionSpeed.default} ease;
 
@@ -252,7 +254,7 @@ export default function Header({ siteOptions, work }) {
 
 					<MenuList>
 						<MenuItem
-							href="#work"
+							href="/#work"
 							className="cursor-link"
 							variants={childVariant}
 							onClick={() => setIsOpen(false)}
@@ -260,7 +262,7 @@ export default function Header({ siteOptions, work }) {
 							Work
 						</MenuItem>
 						<MenuItem
-							href="#about"
+							href="/#about"
 							className="cursor-link"
 							variants={childVariant}
 							onClick={() => setIsOpen(false)}
@@ -268,7 +270,7 @@ export default function Header({ siteOptions, work }) {
 							About
 						</MenuItem>
 						<MenuItem
-							href="#contact"
+							href="/#contact"
 							className="cursor-link"
 							variants={childVariant}
 							onClick={() => setIsOpen(false)}

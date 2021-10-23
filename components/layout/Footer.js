@@ -45,10 +45,24 @@ const MainDetails = styled.div`
 
 const Phone = styled.a`
 	color: ${props => props.theme.colours.white};
+
+	transition: all ${props => props.theme.transitionSpeed.default} ease;
+
+	&:hover
+	{
+		color: ${props => props.theme.colours.grey};
+	}
 `;
 
 const Email = styled.a`
 	color: ${props => props.theme.colours.white};
+
+	transition: all ${props => props.theme.transitionSpeed.default} ease;
+
+	&:hover
+	{
+		color: ${props => props.theme.colours.grey};
+	}
 `;
 
 const SubDetails = styled.div`
@@ -76,10 +90,24 @@ const Content = styled.p`
 
 const GearList = styled.p`
 	color: ${props => props.theme.colours.white};
+
+	transition: all ${props => props.theme.transitionSpeed.default} ease;
+
+	&:hover
+	{
+		color: ${props => props.theme.colours.grey};
+	}
 `;
 
 const SocialLink = styled.a`
 	color: ${props => props.theme.colours.white};
+
+	transition: all ${props => props.theme.transitionSpeed.default} ease;
+
+	&:hover
+	{
+		color: ${props => props.theme.colours.grey};
+	}
 `;
 
 const Copyright = styled.div`
@@ -97,10 +125,24 @@ const BuiltBy = styled.div`
 
 const BuiltByLink = styled.a`
 	color: ${props => props.theme.colours.white};
+
+	transition: all ${props => props.theme.transitionSpeed.default} ease;
+
+	&:hover
+	{
+		color: ${props => props.theme.colours.grey};
+	}
 `;
 
 const Backtotop = styled.div`
 	grid-column: 11 / -1;
+
+	transition: all ${props => props.theme.transitionSpeed.default} ease;
+
+	&:hover
+	{
+		color: ${props => props.theme.colours.grey};
+	}
 
 	@media ${props => props.theme.mediaBreakpoints.mobile}
 	{

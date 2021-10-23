@@ -26,11 +26,11 @@ const CursorRing = styled(motion.div)`
 	justify-content: center;
 	top: ${props => props.isHoveringLink ? '-10px' : '-1px'};
 	left: ${props => props.isHoveringLink ? '-10px' : '-1px'};
-	height: ${props => props.isHoveringLink ? '20px' : '5px'};
-	width: ${props => props.isHoveringLink ? '20px' : '5px'};
-	background: ${props => props.theme.colours.white};
+	height: ${props => props.hideCursor ? '0' : props.isHoveringLink ? '20px' : '5px'};
+	width: ${props => props.hideCursor ? '0' : props.isHoveringLink ? '20px' : '5px'};
+	background: ${props => props.hideCursor ? 'none' : props.theme.colours.white};
 	border-radius: 50%;
-	border: 1px solid ${props => props.theme.colours.white};
+	border: ${props => props.hideCursor ? 'none' : `1px solid ${props => props.theme.colours.white}`};
 	mix-blend-mode: difference;
 	pointer-events: none;
 	text-align: center;
@@ -39,19 +39,19 @@ const CursorRing = styled(motion.div)`
 	transition: height 300ms ease, width 300ms ease, background 200ms ease, top 300ms ease, left 300ms ease, border-radius 300ms ease;
 `;
 
-// const CursorText = styled.span`
-// 	padding-top: 30px;
-// 	opacity: 1;
-// 	text-transform: uppercase;
-// 	letter-spacing: 0.036rem;
-// 	font-size: 0.667rem;
-// 	color: ${props => props.theme.colours.white};
+const CursorText = styled.span`
+	opacity: 1;
+	text-transform: uppercase;
+	letter-spacing: 0.036rem;
+	font-size: 0.667rem;
+	color: ${props => props.theme.colours.white};
 
-// 	transition: opacity 300ms ease 300ms, padding-top 300ms ease;
-// `;
+	transition: opacity 300ms ease 300ms, padding-top 300ms ease;
+`;
 
 const Cursor = () => {
 	const [isHoveringLink, setIsHoveringLink] = useState(false);
+	const [hideCursor, setHideCursor] = useState(false);
 	const [cursorText, setCursorText] = useState('');
 	const [isOnDevice, setIsOnDevice] = useState('');
 	const position = useMousePosition();
@@ -76,6 +76,8 @@ const Cursor = () => {
 	useEffect(() => {
 		const aTags = document.querySelectorAll('a');
 		const altLinks = document.querySelectorAll('.cursor-link');
+		const closeLinks = document.querySelectorAll('.cursor-close');
+		const hideLinks = document.querySelectorAll('.cursor-hide');
 
 		aTags.forEach((link) => {
 			link.addEventListener('mouseenter', () => {
@@ -95,6 +97,30 @@ const Cursor = () => {
 			});
 		});
 
+		closeLinks.forEach((link) => {
+			link.addEventListener('mouseenter', () => {
+				setHideCursor(true);
+				setCursorText('close');
+			});
+			link.addEventListener('mouseleave', () => {
+				setHideCursor(false);
+				setCursorText('');
+			});
+			link.addEventListener('click', () => {
+				setHideCursor(false);
+				setCursorText('');
+			});
+		});
+
+		hideLinks.forEach((link) => {
+			link.addEventListener('mouseenter', () => {
+				setHideCursor(true);
+			});
+			link.addEventListener('mouseleave', () => {
+				setHideCursor(false);
+			});
+		});
+
 		// checking if on a device
 		const ua = navigator.userAgent;
 		if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -104,16 +130,19 @@ const Cursor = () => {
 		}
 	}, []);
 
+	console.log('hideCursor', hideCursor);
+
 	return (
 		<CursorWrapper isOnDevice={isOnDevice}>
 			<CursorRing
 				isHoveringLink={isHoveringLink}
+				hideCursor={hideCursor}
 				variants={variantsWrapper}
 				animate="visible"
 			>
-				{/* <CursorText>
+				<CursorText>
 					{cursorText}
-				</CursorText> */}
+				</CursorText>
 			</CursorRing>
 		</CursorWrapper>
 	);
