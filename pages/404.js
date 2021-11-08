@@ -12,7 +12,7 @@ const Title = styled.h1`
 
 const LinkTag = styled.a``;
 
-export default function Custom404({ data, loading }) {
+const Custom404 = ({ data, loading }) => {
 	return (
 		<Custom404Wrapper className="custom-404-wrapper">
 			<InnerWrapper>
@@ -24,3 +24,5 @@ export default function Custom404({ data, loading }) {
 		</Custom404Wrapper>
 	);
 }
+
+export default Custom404;

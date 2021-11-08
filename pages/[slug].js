@@ -210,7 +210,7 @@ const pageTransitionVariants = {
 	visible: { opacity: 1, transition: { duration: 0.5 } }
 };
 
-export default function Page({ data, work, cursorRefresh, options }) {
+const Page = ({ data, work, cursorRefresh, options }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isWorkIndexHovered, setIsWorkIndexHovered] = useState(false);
 
@@ -397,3 +397,5 @@ export async function getStaticProps({ params }) {
 		}
 	};
 }
+
+export default Page;
