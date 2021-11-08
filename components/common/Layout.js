@@ -16,7 +16,7 @@ const variants = {
 	visible: { opacity: 1 }
 };
 
-export default function Layout({ children, siteOptions, work }) {
+export default function Layout({ children, siteOptions, work, cursorRefresh }) {
 	const [gearListPanelOpen, setGearListPanelOpen] = useState(false);
 	const router = useRouter();
 
@@ -54,7 +54,7 @@ export default function Layout({ children, siteOptions, work }) {
 
 	return (
 		<>
-			<Cursor />
+			<Cursor cursorRefresh={cursorRefresh} />
 			<Header siteOptions={siteOptions} work={work} />
 			<Main
 				initial="hidden"

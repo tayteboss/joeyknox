@@ -7,15 +7,21 @@ import { motion } from 'framer-motion';
 
 const IntroMenuWrapper = styled(motion.div)`
 	position: fixed;
-	bottom: calc(100vh - 255px);
-	/* opacity: ${props => props.hasScrolled ? '0' : '1'};
-	visibility: ${props => props.hasScrolled ? 'hidden' : 'visible'}; */
+	bottom: calc(100vh - 270px);
 	background: ${props => props.theme.colours.white};
 	z-index: 3;
+	padding-bottom: 17px;
+	opacity: ${props => props.hasScrolled ? 0 : 1};
+	visibility: ${props => props.hasScrolled ? 'hidden' : 'visible'};
+	pointer-events: ${props => props.hasScrolled ? 'none' : 'all'};
+
+	transition: all 10ms ease;
+	transition-delay: 10ms;
 
 	@media ${props => props.theme.mediaBreakpoints.mobile}
 	{
 		bottom: calc(100vh - 185px);
+		padding-bottom: 0;
 	}
 `;
 
@@ -86,25 +92,8 @@ const childVariant = {
 };
 
 const IntroMenu = ({ data }) => {
-	const [hasScrolled, setHasScrolled] = useState(false);
-
-	const handleScroll = () => {
-		if (window.scrollY > 500) {
-			setHasScrolled(true);
-		} else {
-			setHasScrolled(false);
-		}
-	};
-
-	useEffect(() => {
-		const throttledHandleScroll = _.throttle(handleScroll, 50);
-		window.addEventListener('scroll', throttledHandleScroll);
-		return () => window.removeEventListener('scroll', throttledHandleScroll);
-	}, []);
-
 	return (
 		<IntroMenuWrapper
-			hasScrolled={hasScrolled}
 			variants={parentVariant}
 			initial="hidden"
 			animate="visible"
@@ -137,7 +126,7 @@ const IntroMenu = ({ data }) => {
 						Contact
 					</MenuItem>
 					<MenuItem
-						href="/work/showreel"
+						href="/showreel"
 						className="cursor-link"
 						variants={childVariant}
 					>

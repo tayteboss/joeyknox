@@ -9,9 +9,26 @@ import { GlobalStyles } from '../styles/global';
 import Layout from '../components/common/Layout';
 import Head from '../components/common/Head';
 import { getAllWork, getSiteOptions } from '../lib/source/prismic/api';
+import { AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/router' ;
 
 const WebApp = ({ Component, pageProps }) => {
 	const [siteOptions] = useState(pageProps.options);
+	const [cursorRefresh, setCursorRefresh] = useState(0);
+	const router = useRouter();
+
+	const handleCursorRefresh = () => {
+		setCursorRefresh(cursorRefresh + 1);
+	}
+
+	const handleExitComplete = () => {
+		window.scrollTo(0, 0);
+		handleCursorRefresh();
+
+		setTimeout(() => {
+			handleCursorRefresh();
+		}, 1000);
+	}
 
 	useEffect(() => {
 		if ('scrollRestoration' in history) {
@@ -30,8 +47,18 @@ const WebApp = ({ Component, pageProps }) => {
 					<Layout
 						siteOptions={pageProps.options}
 						work={pageProps.work}
+						cursorRefresh={handleCursorRefresh}
 					>
-						<Component {...pageProps} />
+						<AnimatePresence
+							exitBeforeEnter
+							onExitComplete={() => handleExitComplete()}
+						>
+							<Component
+								{...pageProps}
+								key={router.asPath}
+								cursorRefresh={handleCursorRefresh}
+							/>
+						</AnimatePresence>
 					</Layout>
 				</SiteOptionsProvider>
 			</ApolloProvider>

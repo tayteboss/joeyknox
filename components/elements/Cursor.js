@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useMousePosition } from '../../utils/UseMousePosition';
 import _ from 'lodash';
+import { useRouter } from 'next/router';
 
 const CursorWrapper = styled.div`
 	mix-blend-mode: difference;
@@ -26,11 +27,11 @@ const CursorRing = styled(motion.div)`
 	justify-content: center;
 	top: ${props => props.isHoveringLink ? '-10px' : '-1px'};
 	left: ${props => props.isHoveringLink ? '-10px' : '-1px'};
-	height: ${props => props.hideCursor ? '0' : props.isHoveringLink ? '20px' : '5px'};
-	width: ${props => props.hideCursor ? '0' : props.isHoveringLink ? '20px' : '5px'};
-	background: ${props => props.hideCursor ? 'none' : props.theme.colours.white};
-	border-radius: 50%;
-	border: ${props => props.hideCursor ? 'none' : `1px solid ${props => props.theme.colours.white}`};
+	height: ${props => props.isDragging ? '5px' : props.hideCursor ? '0' : props.isHoveringLink ? '20px' : '5px'};
+	width: ${props => props.isDragging ? '40px' : props.hideCursor ? '0' : props.isHoveringLink ? '20px' : '5px'};
+	background: ${props => props.isDragging ? props.theme.colours.white : props.hideCursor ? 'none' : props.theme.colours.white};
+	border-radius: ${props => props.isDragging ? '100px' : '50%'};
+	border: ${props => props.isDragging ? `1px solid ${props => props.theme.colours.white}` : props.hideCursor ? 'none' : `1px solid ${props => props.theme.colours.white}`};
 	mix-blend-mode: difference;
 	pointer-events: none;
 	text-align: center;
@@ -41,20 +42,24 @@ const CursorRing = styled(motion.div)`
 
 const CursorText = styled.span`
 	opacity: 1;
+	margin-top: -5px;
 	text-transform: uppercase;
 	letter-spacing: 0.036rem;
 	font-size: 0.667rem;
 	color: ${props => props.theme.colours.white};
+	white-space: nowrap;
 
 	transition: opacity 300ms ease 300ms, padding-top 300ms ease;
 `;
 
-const Cursor = () => {
+const Cursor = ({ cursorRefresh }) => {
 	const [isHoveringLink, setIsHoveringLink] = useState(false);
 	const [hideCursor, setHideCursor] = useState(false);
+	const [isDragging, setIsDragging] = useState(false);
 	const [cursorText, setCursorText] = useState('');
-	const [isOnDevice, setIsOnDevice] = useState('');
+	const [isOnDevice, setIsOnDevice] = useState(false);
 	const position = useMousePosition();
+	const router = useRouter();
 
 	let mouseXPosition = position.x;
 	let mouseYPosition = position.y;
@@ -78,6 +83,8 @@ const Cursor = () => {
 		const altLinks = document.querySelectorAll('.cursor-link');
 		const closeLinks = document.querySelectorAll('.cursor-close');
 		const hideLinks = document.querySelectorAll('.cursor-hide');
+		const showreelLinks = document.querySelectorAll('.cursor-showreel');
+		const dragLinks = document.querySelectorAll('.cursor-drag');
 
 		aTags.forEach((link) => {
 			link.addEventListener('mouseenter', () => {
@@ -121,6 +128,47 @@ const Cursor = () => {
 			});
 		});
 
+		showreelLinks.forEach((link) => {
+			link.addEventListener('mouseenter', () => {
+				setHideCursor(true);
+				setCursorText('play showreel');
+			});
+			link.addEventListener('mouseleave', () => {
+				setHideCursor(false);
+				setCursorText('');
+			});
+			link.addEventListener('click', () => {
+				setHideCursor(false);
+				setCursorText('');
+			});
+		});
+
+		dragLinks.forEach((link) => {
+			link.addEventListener('mouseenter', () => {
+				setHideCursor(true);
+				setCursorText('drag');
+			});
+			link.addEventListener('mouseleave', () => {
+				setHideCursor(false);
+				setCursorText('');
+				setIsDragging(false);
+			});
+			link.addEventListener('mousedown', () => {
+				setCursorText('');
+				setIsDragging(true);
+			});
+			link.addEventListener('mouseup', () => {
+				setHideCursor(true);
+				setCursorText('drag');
+				setIsDragging(false);
+			});
+			link.addEventListener('click', () => {
+				setHideCursor(false);
+				setCursorText('');
+				setIsDragging(false);
+			});
+		});
+
 		// checking if on a device
 		const ua = navigator.userAgent;
 		if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -128,14 +176,20 @@ const Cursor = () => {
 		} else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
 			setIsOnDevice(true);
 		}
-	}, []);
+	}, [cursorRefresh]);
 
-	console.log('hideCursor', hideCursor);
+	useEffect(() => {
+		setIsHoveringLink(false);
+		setHideCursor(false);
+		setIsDragging(false);
+		setCursorText(false);
+	}, [router.asPath]);
 
 	return (
 		<CursorWrapper isOnDevice={isOnDevice}>
 			<CursorRing
 				isHoveringLink={isHoveringLink}
+				isDragging={isDragging}
 				hideCursor={hideCursor}
 				variants={variantsWrapper}
 				animate="visible"

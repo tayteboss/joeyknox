@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { getAllWork, getSingleWork } from '../lib/source/prismic/api';
+import { getAllWork, getSingleWork, getSiteOptions } from '../lib/source/prismic/api';
 import styled from 'styled-components';
 import InnerWrapper from '../components/elements/InnerWrapper';
 import Grid from '../components/elements/Grid';
 import { useInView } from 'react-intersection-observer';
 import Image from '../components/elements/Image';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { NextSeo } from 'next-seo';
 
-const Project = styled.div`
+const Project = styled(motion.div)`
 	padding-top: 246px;
 
 	@media ${props => props.theme.mediaBreakpoints.mobile}
@@ -116,7 +118,7 @@ const ImageWrapper = styled.div`
 `;
 
 const GoBack = styled.a`
-	grid-column: 1 / 3;
+	grid-column: 1 / 2;
 	margin: 100px 0 120px;
 
 	@media ${props => props.theme.mediaBreakpoints.mobile}
@@ -203,9 +205,24 @@ const Name = styled.p`
 	flex-direction: column;
 `;
 
-export default function Page({ data, work }) {
+const pageTransitionVariants = {
+	hidden: { opacity: 0, transition: { duration: 0.5 } },
+	visible: { opacity: 1, transition: { duration: 0.5 } }
+};
+
+export default function Page({ data, work, cursorRefresh, options }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isWorkIndexHovered, setIsWorkIndexHovered] = useState(false);
+
+	const handleOpenCredits = () => {
+		setIsOpen(true);
+		cursorRefresh();
+	}
+
+	const handleCloseCredits = () => {
+		setIsOpen(false);
+		cursorRefresh();
+	}
 
 	const { ref, inView } = useInView({
 		triggerOnce: true,
@@ -220,125 +237,139 @@ export default function Page({ data, work }) {
 	});
 
 	return (
-		<Project>
-			<InnerWrapper>
-				<Grid>
-					{data.title && (
-						<Title
-							className={`view-element-fade-in ${
-								inView ? 'view-element-fade-in--in-view' : ''
-							}`}
-						>
-							{data.title}
-						</Title>
-					)}
-					{data.date && (
-						<Date
-							className={`view-element-fade-in ${
-								inView ? 'view-element-fade-in--in-view' : ''
-							}`}
-						>
-							{data.date}
-						</Date>
-					)}
-					<CreditsTrigger
-						onClick={() => setIsOpen(true)}
-						className={`cursor-link view-element-fade-in ${
-							inView ? 'view-element-fade-in--in-view' : ''
-						}`}
-					>
-						See Credits
-					</CreditsTrigger>
-					{data.vimeo_embed && (
-						<VideoWrapper
-							ref={ref}
-							className={`cursor-hide view-element-bottom-top ${
-								inView ? 'view-element-bottom-top--in-view' : ''
-							}`}
-						>
-							<Video
-								dangerouslySetInnerHTML={{
-									__html: data.vimeo_embed
-								}}
-							/>
-						</VideoWrapper>
-					)}
-					<StillsWrapper>
-						{data.stills && (
-							data.stills.map((item, index) => (
-								<ImageWrapper key={index}>
-									<Image
-										src={item.image.url}
-										alt={item.image.alt}
-									/>
-								</ImageWrapper>
-							))
-						)}
-					</StillsWrapper>
-
-					<GoBack href="/#work">Go Back</GoBack>
-
-					<WorkIndex
-						ref={ref2}
-						className={`cursor-link view-element-fade-in ${
-							inView2 ? 'view-element-fade-in--in-view' : ''
-						}`}
-					>
-						<WorkIndexTitle>Index</WorkIndexTitle>
-						<WorkList>
-							{work.map((item, index) => (
-								<Link
-									key={index}
-									passHref
-									href={item.node._meta.uid}
+		<>
+			{data && work && (
+				<Project
+					variants={pageTransitionVariants}
+					initial="hidden"
+					animate="visible"
+					exit="hidden"
+				>
+					<NextSeo 
+						title={data.title ? `${data.title} | Joey Knox Cinematography` : 'Joey Knox Cinematography'}
+						description={options.site_description ? options.site_description : null}
+					/>
+					<InnerWrapper>
+						<Grid>
+							{data.title && (
+								<Title
+									className={`view-element-fade-in ${
+										inView ? 'view-element-fade-in--in-view' : ''
+									}`}
 								>
-									<WorkItem
-										className="cursor-link"
-										onMouseOver={() =>
-											setIsWorkIndexHovered(true)
-										}
-										onMouseOut={() =>
-											setIsWorkIndexHovered(false)
-										}
-										isWorkIndexHovered={isWorkIndexHovered}
-									>
-										{item.node.title},{' '}
-									</WorkItem>
-								</Link>
-							))}
-						</WorkList>
-					</WorkIndex>
+									{data.title}
+								</Title>
+							)}
+							{data.date && (
+								<Date
+									className={`view-element-fade-in ${
+										inView ? 'view-element-fade-in--in-view' : ''
+									}`}
+								>
+									{data.date}
+								</Date>
+							)}
+							<CreditsTrigger
+								onClick={() => handleOpenCredits()}
+								className={`cursor-link view-element-fade-in ${
+									inView ? 'view-element-fade-in--in-view' : ''
+								}`}
+							>
+								See Credits
+							</CreditsTrigger>
+							{data.vimeo_embed && (
+								<VideoWrapper
+									ref={ref}
+									className={`cursor-hide view-element-bottom-top ${
+										inView ? 'view-element-bottom-top--in-view' : ''
+									}`}
+								>
+									<Video
+										className="cursor-hide"
+										dangerouslySetInnerHTML={{
+											__html: data.vimeo_embed
+										}}
+									/>
+								</VideoWrapper>
+							)}
+							<StillsWrapper>
+								{data.stills && (
+									data.stills.map((item, index) => (
+										<ImageWrapper key={index}>
+											<Image
+												src={item.image?.url}
+												alt={item.image?.alt}
+											/>
+										</ImageWrapper>
+									))
+								)}
+							</StillsWrapper>
 
-					{data.credits && (
-						<CreditsOverlay
-							isOpen={isOpen}
-							onClick={() => setIsOpen(false)}
-							className="cursor-close"
-						>
-							<RoleWrapper>
-								{data.credits.map((item, index) => (
-									item.credit_title && (
-										<Role key={index}>
-											{item.credit_title}
-										</Role>
-									)
-								))}
-							</RoleWrapper>
-							<NameWrapper>
-								{data.credits.map((item, index) => (
-									item.credit_name && (
-										<Name key={index}>
-											{item.credit_name}
-										</Name>
-									)
-								))}
-							</NameWrapper>
-						</CreditsOverlay>
-					)}
+							<GoBack href="/#work" className="cursor-link">Go Back</GoBack>
 
-				</Grid>
-			</InnerWrapper>
-		</Project>
+							<WorkIndex
+								ref={ref2}
+								className={`cursor-link view-element-fade-in ${
+									inView2 ? 'view-element-fade-in--in-view' : ''
+								}`}
+							>
+								<WorkIndexTitle>Index</WorkIndexTitle>
+								<WorkList>
+									{work.map((item, index) => (
+										<Link
+											key={index}
+											passHref
+											href={item.node._meta.uid}
+										>
+											<WorkItem
+												className="cursor-link"
+												onMouseOver={() =>
+													setIsWorkIndexHovered(true)
+												}
+												onMouseOut={() =>
+													setIsWorkIndexHovered(false)
+												}
+												isWorkIndexHovered={isWorkIndexHovered}
+											>
+												{item.node.title},{' '}
+											</WorkItem>
+										</Link>
+									))}
+								</WorkList>
+							</WorkIndex>
+
+							{data.credits && (
+								<CreditsOverlay
+									isOpen={isOpen}
+									onClick={() => handleCloseCredits()}
+									className="cursor-close"
+								>
+									<RoleWrapper>
+										{data.credits.map((item, index) => (
+											item.credit_title && (
+												<Role key={index}>
+													{item.credit_title}
+												</Role>
+											)
+										))}
+									</RoleWrapper>
+									<NameWrapper>
+										{data.credits.map((item, index) => (
+											item.credit_name && (
+												<Name key={index}>
+													{item.credit_name}
+												</Name>
+											)
+										))}
+									</NameWrapper>
+								</CreditsOverlay>
+							)}
+
+						</Grid>
+					</InnerWrapper>
+				</Project>
+			)}
+		</>
 	);
 }
 
@@ -356,11 +387,13 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
 	const data = await getSingleWork(params.slug);
 	const work = await getAllWork();
+	const options = await getSiteOptions();
 
 	return {
 		props: {
 			data: data,
-			work: work
+			work: work,
+			option: options
 		}
 	};
 }

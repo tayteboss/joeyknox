@@ -157,91 +157,95 @@ const Footer = ({ data, handleGearListPanelOpen }) => {
 	};
 
 	return (
-		<FooterWrapper className="dim-wrapper" id="contact">
-			<InnerWrapper>
-				<FooterInner>
+		<>
+			{data && (
+				<FooterWrapper className="dim-wrapper" id="contact">
+					<InnerWrapper>
+						<FooterInner>
 
-					<FooterTop id="about">
-						<Grid>
+							<FooterTop id="about">
+								<Grid>
 
-							<MainDetails>
+									<MainDetails>
 
-								{data.phone && (
-									<Phone
+										{data.phone && (
+											<Phone
+												className="cursor-link"
+												href={`tel: ${data.phone}`}
+											>
+												{data.phone}
+											</Phone>
+										)}
+
+										{data.email && (
+											<Email
+												className="cursor-link"
+												href={`mailto: ${data.email}`}
+											>
+												{data.email}
+											</Email>
+										)}
+
+									</MainDetails>
+
+									<SubDetails>
+
+										{data.footer_content && (
+											<Content>{data.footer_content}</Content>
+										)}
+
+										<GearList
+											className="cursor-link"
+											onClick={() => handleGearListPanelOpen()}
+										>
+											Gear List
+										</GearList>
+
+										{data.instagram && (
+											<SocialLink
+												className="cursor-link"
+												href={data.instagram.url}
+												target="_blank"
+											>
+												Instagram
+											</SocialLink>
+										)}
+
+										{data.vimeo && (
+											<SocialLink
+												className="cursor-link"
+												href={data.vimeo.url}
+												target="_blank"
+											>
+												Vimeo
+											</SocialLink>
+										)}
+
+									</SubDetails>
+								</Grid>
+							</FooterTop>
+
+							<FooterBottom>
+								<Grid>
+									<Copyright>
+										&copy; {new Date().getFullYear()} Joey Knox
+									</Copyright>
+									<BuiltBy>
+										Built by <BuiltByLink href="https://tayte.co/" target="_blank">tayte.co</BuiltByLink>
+									</BuiltBy>
+									<Backtotop
 										className="cursor-link"
-										href={`tel: ${data.phone}`}
+										onClick={() => handleScrollTopClick()}
 									>
-										{data.phone}
-									</Phone>
-								)}
-
-								{data.email && (
-									<Email
-										className="cursor-link"
-										href={`mailto: ${data.email}`}
-									>
-										{data.email}
-									</Email>
-								)}
-
-							</MainDetails>
-
-							<SubDetails>
-
-								{data.footer_content && (
-									<Content>{data.footer_content}</Content>
-								)}
-
-								<GearList
-									className="cursor-link"
-									onClick={() => handleGearListPanelOpen()}
-								>
-									Gear List
-								</GearList>
-
-								{data.instagram && (
-									<SocialLink
-										className="cursor-link"
-										href={data.instagram.url}
-										target="_blank"
-									>
-										Instagram
-									</SocialLink>
-								)}
-
-								{data.vimeo && (
-									<SocialLink
-										className="cursor-link"
-										href={data.vimeo.url}
-										target="_blank"
-									>
-										Vimeo
-									</SocialLink>
-								)}
-
-							</SubDetails>
-						</Grid>
-					</FooterTop>
-
-					<FooterBottom>
-						<Grid>
-							<Copyright>
-								&copy; {new Date().getFullYear()} Joey Knox
-							</Copyright>
-							<BuiltBy>
-								Built by <BuiltByLink href="https://tayte.co/" target="_blank">tayte.co</BuiltByLink>
-							</BuiltBy>
-							<Backtotop
-								className="cursor-link"
-								onClick={() => handleScrollTopClick()}
-							>
-								Back to top
-							</Backtotop>
-						</Grid>
-					</FooterBottom>
-				</FooterInner>
-			</InnerWrapper>
-		</FooterWrapper>
+										Back to top
+									</Backtotop>
+								</Grid>
+							</FooterBottom>
+						</FooterInner>
+					</InnerWrapper>
+				</FooterWrapper>
+			)}
+		</>
 	);
 };
 

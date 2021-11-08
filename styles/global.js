@@ -115,7 +115,6 @@ export const GlobalStyles = createGlobalStyle`
 		transform: translateY(50px);
 
 		transition: all 500ms ease;
-		transition-delay: 300ms;
 
 		&--in-view
 		{
@@ -130,7 +129,6 @@ export const GlobalStyles = createGlobalStyle`
 		transform: translateX(-50px);
 
 		transition: all 500ms ease;
-		transition-delay: 300ms;
 
 		&--in-view
 		{
@@ -144,7 +142,6 @@ export const GlobalStyles = createGlobalStyle`
 		opacity: 0;
 
 		transition: all 500ms ease;
-		transition-delay: 300ms;
 
 		&--in-view
 		{
@@ -164,6 +161,46 @@ export const GlobalStyles = createGlobalStyle`
 		transition: all ${theme.transitionSpeed.slow} ease;
 	}
 
+	.is-list
+	{
+		@media ${theme.mediaBreakpoints.mobile}
+		{
+			.project-categories-wrapper
+			{
+				transform: translateY(100%);
+			}
+	
+			.project-filters-wrapper
+			{
+				transform: translateY(55px);
+			}
+		}
+	}
+
+	.is-music-videos
+	{
+		.music-videos-category-button
+		{
+			color: ${props => props.theme.colours.black};
+		}
+	}
+
+	.is-commercial
+	{
+		.commercial-category-button
+		{
+			color: ${props => props.theme.colours.black};
+		}
+	}
+
+	.is-narrative
+	{
+		.narrative-category-button
+		{
+			color: ${props => props.theme.colours.black};
+		}
+	}
+
 	/* Resets */
 
 	*
@@ -181,7 +218,7 @@ export const GlobalStyles = createGlobalStyle`
 	#root
 	{
 		background: ${theme.colours.white};
-		font-size: 15px;
+		font-size: 14px;
 		line-height: 1.5;
 		scroll-behavior: smooth;
 		-webkit-font-smoothing: antialiased;

@@ -4,6 +4,7 @@ import InnerWrapper from '../elements/InnerWrapper';
 import Grid from '../elements/Grid';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const HeaderWrapper = styled(motion.header)`
 	position: fixed;
@@ -18,7 +19,7 @@ const HeaderWrapper = styled(motion.header)`
 	transition: filter ${props => props.theme.transitionSpeed.slow} ease;
 `;
 
-const Link = styled.a`
+const LinkTag = styled.a`
 	pointer-events: all;
 	display: inline;
 `;
@@ -191,8 +192,6 @@ export default function Header({ siteOptions, work }) {
 	const [isHome, setIsHome] = useState(false);
 	const router = useRouter();
 
-	console.log('work', work);
-
 	useEffect(() => {
 		const handleScroll = () => {
 			if (isOpen || router.asPath !== '/') {
@@ -220,117 +219,124 @@ export default function Header({ siteOptions, work }) {
 	return (
 		<>
 
-			<HeaderWrapper
-				variants={isHome ? headerVariant : null}
-				initial="hidden"
-				animate="visible"
-				className="dim-wrapper"
-			>
-				<InnerWrapper>
-					<Grid align="center">
-						<Link href="/">
-							<Logo
-								className="cursor-link"
-								src="./icons/logo-white.svg"
-							/>
-						</Link>
-						<MenuTrigger
-							className="cursor-link"
-							onClick={() => setIsOpen(!isOpen)}
-							hasScrolled={hasScrolled}
-						>
-							{isOpen ? 'Close' : 'Menu'}
-						</MenuTrigger>
-					</Grid>
-				</InnerWrapper>
-			</HeaderWrapper>
-
-			<Menu isOpen={isOpen}>
-				<MenuInner
-					variants={parentVariant}
-					initial="hidden"
-					animate={isOpen ? 'visible' : 'hidden'}
-				>
-
-					<MenuList>
-						<MenuItem
-							href="/#work"
-							className="cursor-link"
-							variants={childVariant}
-							onClick={() => setIsOpen(false)}
-						>
-							Work
-						</MenuItem>
-						<MenuItem
-							href="/#about"
-							className="cursor-link"
-							variants={childVariant}
-							onClick={() => setIsOpen(false)}
-						>
-							About
-						</MenuItem>
-						<MenuItem
-							href="/#contact"
-							className="cursor-link"
-							variants={childVariant}
-							onClick={() => setIsOpen(false)}
-						>
-							Contact
-						</MenuItem>
-						<MenuItem
-							href="/work/showreel"
-							className="cursor-link"
-							variants={childVariant}
-							onClick={() => setIsOpen(false)}
-						>
-							Showreel
-						</MenuItem>
-					</MenuList>
-
-					<ContactDetails>
-						{siteOptions.phone && (
-							<Phone
-								className="cursor-link"
-								href={`tel: ${siteOptions.phone}`}
-								variants={childVariant}
-							>
-								{siteOptions.phone}
-							</Phone>
-						)}
-
-						{siteOptions.email && (
-							<Email
-								className="cursor-link"
-								href={`mailto: ${siteOptions.email}`}
-								variants={childVariant}
-							>
-								{siteOptions.email}
-							</Email>
-						)}
-					</ContactDetails>
-
-					{work && (
-						<WorkList>
-							{work.map((item, index) => (
-								<Link
-									key={index}
-									passHref
-									href={item.node._meta.uid}
+			{siteOptions && (
+				<>
+					<HeaderWrapper
+						variants={isHome ? headerVariant : null}
+						initial="hidden"
+						animate="visible"
+						className="dim-wrapper"
+					>
+						<InnerWrapper>
+							<Grid align="center">
+								<Link href="/" passHref>
+									<LinkTag>
+										<Logo
+											className="cursor-link"
+											src="./icons/logo-white.svg"
+										/>
+									</LinkTag>
+								</Link>
+								<MenuTrigger
+									className="cursor-link"
+									onClick={() => setIsOpen(!isOpen)}
+									hasScrolled={hasScrolled}
 								>
-									<WorkItem
+									{isOpen ? 'Close' : 'Menu'}
+								</MenuTrigger>
+							</Grid>
+						</InnerWrapper>
+					</HeaderWrapper>
+
+					<Menu isOpen={isOpen}>
+						<MenuInner
+							variants={parentVariant}
+							initial="hidden"
+							animate={isOpen ? 'visible' : 'hidden'}
+						>
+
+							<MenuList>
+								<MenuItem
+									href="/#work"
+									className="cursor-link"
+									variants={childVariant}
+									onClick={() => setIsOpen(false)}
+								>
+									Work
+								</MenuItem>
+								<MenuItem
+									href="/#about"
+									className="cursor-link"
+									variants={childVariant}
+									onClick={() => setIsOpen(false)}
+								>
+									About
+								</MenuItem>
+								<MenuItem
+									href="/#contact"
+									className="cursor-link"
+									variants={childVariant}
+									onClick={() => setIsOpen(false)}
+								>
+									Contact
+								</MenuItem>
+								<Link href="/showreel" passHref>
+									<MenuItem
 										className="cursor-link"
+										variants={childVariant}
 										onClick={() => setIsOpen(false)}
+									>
+										Showreel
+									</MenuItem>
+								</Link>
+							</MenuList>
+
+							<ContactDetails>
+								{siteOptions.phone && (
+									<Phone
+										className="cursor-link"
+										href={`tel: ${siteOptions.phone}`}
 										variants={childVariant}
 									>
-										{item.node.title},{' '}
-									</WorkItem>
-								</Link>
-							))}
-						</WorkList>
-					)}
+										{siteOptions.phone}
+									</Phone>
+								)}
 
-				</MenuInner>
-			</Menu>
+								{siteOptions.email && (
+									<Email
+										className="cursor-link"
+										href={`mailto: ${siteOptions.email}`}
+										variants={childVariant}
+									>
+										{siteOptions.email}
+									</Email>
+								)}
+							</ContactDetails>
+
+							{work && (
+								<WorkList>
+									{work.map((item, index) => (
+										<Link
+											key={index}
+											passHref
+											href={item.node._meta.uid}
+										>
+											<WorkItem
+												className="cursor-link"
+												onClick={() => setIsOpen(false)}
+												variants={childVariant}
+											>
+												{item.node.title},{' '}
+											</WorkItem>
+										</Link>
+									))}
+								</WorkList>
+							)}
+
+						</MenuInner>
+					</Menu>
+				</>
+			)}
 
 		</>
 	);

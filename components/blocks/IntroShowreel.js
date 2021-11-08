@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ReactPlayer from 'react-player';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const IntroShowreelWrapper = styled(motion.section)`
 	width: 100%;
@@ -13,6 +15,7 @@ const IntroShowreelWrapper = styled(motion.section)`
 	@media ${props => props.theme.mediaBreakpoints.mobile}
 	{
 		padding-top: 200px;
+		margin-top: 0;
 	}
 
 	video
@@ -20,41 +23,67 @@ const IntroShowreelWrapper = styled(motion.section)`
 		object-fit: cover;
 		height: 100vh;
 		width: 100vw;
+		pointer-events: all;
 	}
 `;
 
-const videoVariant = {
-	hidden: {
-		y: -270,
-		height: 'calc(100vh + 270px)'
-	},
-	visible: {
-		y: 0,
-		height: '100vh',
-		transition: {
-			duration: 0.75,
-			delay: 3,
-			ease: 'easeOut'
-		}
-	}
-};
+const LinkTag = styled.a``;
 
 const IntroShowreel = ({ data }) => {
+	const [isMobile, setIsMobile] = useState(false);
+
+	const handleResize = () => {
+		if (window.innerWidth < 539) {
+			setIsMobile(true);
+		} else {
+			setIsMobile(false);
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener('load', handleResize);
+		window.addEventListener('resize', handleResize);
+	}, []);
+
+	const videoVariant = {
+		hidden: {
+			y: -270,
+			height: isMobile ? 'calc(100vh + 200px)' : 'calc(100vh + 270px)',
+			zIndex: 1001
+		},
+		visible: {
+			y: 0,
+			height: '100vh',
+			zIndex: 5,
+			transition: {
+				duration: 0.75,
+				delay: 3,
+				ease: 'easeOut'
+			}
+		}
+	};
 	return (
 		<IntroShowreelWrapper
 			variants={videoVariant}
 			initial="hidden"
 			animate="visible"
 		>
-			<ReactPlayer
-				width="100vw"
-				height="100vh"
-				playing={true}
-				loop={true}
-				muted={true}
-				url={data.showreel_snippet.url}
-				playsinline={true}
-			/>
+			{data.showreel_snippet && (
+				<Link href="/showreel" passHref>
+					<LinkTag>
+						<ReactPlayer
+							width="100vw"
+							height={isMobile ? '100%' : '100vh'}
+							playing={true}
+							loop={true}
+							muted={true}
+							url={data.showreel_snippet?.url}
+							playsinline={true}
+							className="cursor-showreel"
+						/>
+					</LinkTag>
+				</Link>
+			)}
 		</IntroShowreelWrapper>
 	);
 };
