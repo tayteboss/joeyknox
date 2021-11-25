@@ -91,11 +91,11 @@ const childVariant = {
 	}
 };
 
-const IntroMenu = ({ data }) => {
+const IntroMenu = ({ data, hasVisited }) => {
 	return (
 		<IntroMenuWrapper
 			variants={parentVariant}
-			initial="hidden"
+			initial={hasVisited ? 'visible' : 'hidden'}
 			animate="visible"
 			className="dim-wrapper"
 		>

@@ -5,6 +5,7 @@ import Grid from '../elements/Grid';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import _ from 'lodash';
 
 const HeaderWrapper = styled(motion.header)`
 	position: fixed;
@@ -143,6 +144,21 @@ const WorkItem = styled(motion.p)`
 	}
 `;
 
+const ClosePanel = styled.div`
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100%;
+	background: ${props => props.theme.colours.white};
+	opacity: ${props => props.isOpen ? 0.5 : 0};
+	visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+	backdrop-filter: ${props => props.isOpen ? 'blur(3px)' : 'blur(0)'};
+	z-index: ${props => props.isOpen ? 9 : -1};
+
+	transition: all ${props => props.theme.transitionSpeed.slow} ease;
+`;
+
 const headerVariant = {
 	hidden: {
 		opacity: 0
@@ -180,7 +196,7 @@ const childVariant = {
 	visible: {
 		opacity: 1,
 		transition: {
-			duration: 0.2,
+			duration: 0.3,
 			ease: 'easeOut'
 		}
 	}
@@ -193,6 +209,12 @@ export default function Header({ siteOptions, work }) {
 	const router = useRouter();
 
 	useEffect(() => {
+		setHasScrolled(false);
+
+		if (isOpen) {
+			setHasScrolled(true);
+		}
+
 		const handleScroll = () => {
 			if (isOpen || router.asPath !== '/') {
 				setHasScrolled(true);
@@ -229,7 +251,7 @@ export default function Header({ siteOptions, work }) {
 					>
 						<InnerWrapper>
 							<Grid align="center">
-								<Link href="/" passHref>
+								<Link scroll={false} href="/" passHref>
 									<LinkTag>
 										<Logo
 											className="cursor-link"
@@ -280,7 +302,7 @@ export default function Header({ siteOptions, work }) {
 								>
 									Contact
 								</MenuItem>
-								<Link href="/showreel" passHref>
+								<Link scroll={false} href="/showreel" passHref>
 									<MenuItem
 										className="cursor-link"
 										variants={childVariant}
@@ -335,6 +357,8 @@ export default function Header({ siteOptions, work }) {
 
 						</MenuInner>
 					</Menu>
+
+					<ClosePanel className="cursor-close" isOpen={isOpen} />
 				</>
 			)}
 

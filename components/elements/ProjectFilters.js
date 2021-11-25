@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useInView } from 'react-intersection-observer';
 
 const ProjectFiltersWrapper = styled.div`
 	grid-column: 5 / -1;
@@ -56,10 +57,20 @@ const ProjectFilters = ({
 		return () => window.removeEventListener('scroll', throttledHandleScroll);
 	}, []);
 
+	const { ref, inView } = useInView({
+		triggerOnce: true,
+		threshold: 0.2,
+		rootMargin: '-15%'
+	});
+
 	return (
 		<ProjectFiltersWrapper
 			className="project-filters-wrapper"
 			hasScrolled={hasScrolled}
+			ref={ref}
+			className={`view-element-fade-in ${
+				inView ? 'view-element-fade-in--in-view' : ''
+			}`}
 		>
 			<FilterTrigger
 				isActive={isList}

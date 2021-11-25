@@ -16,19 +16,26 @@ const variants = {
 	visible: { opacity: 1 }
 };
 
-export default function Layout({ children, siteOptions, work, cursorRefresh }) {
+export default function Layout({ children, siteOptions, work, cursorRefresh, hasVisited }) {
 	const [gearListPanelOpen, setGearListPanelOpen] = useState(false);
 	const router = useRouter();
 
 	useEffect(() => {
-		if (router.asPath === "/") {
-			const body = document.querySelector('html');
-	
-			body.classList.add('no-scroll');
-	
-			setTimeout(() => {
-				body.classList.remove('no-scroll');
-			}, 4500);
+		if (!hasVisited) {
+			if (
+				router.asPath === '/' ||
+				router.asPath === '/#work' ||
+				router.asPath === '/#about' ||
+				router.asPath === '/#contact'
+			) {
+				const body = document.querySelector('html');
+		
+				body.classList.add('no-scroll');
+		
+				setTimeout(() => {
+					body.classList.remove('no-scroll');
+				}, 4500);
+			}
 		}
 	}, [router.asPath]);
 

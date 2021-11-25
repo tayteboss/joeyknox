@@ -6,7 +6,20 @@ const ProjectListOuterWrapper = styled(motion.div)`
 	grid-column: 1 / -1;
 `;
 
-const ProjectListInner = styled(motion.div)``;
+const ProjectListInner = styled.div`
+	position: relative;
+`;
+
+const ProjectCover = styled(motion.div)`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: ${props => props.theme.colours.white};
+	z-index: 1;
+	pointer-events: none;
+`;
 
 const parentVarients = {
 	hidden: {
@@ -37,15 +50,16 @@ const parentVarients = {
 
 const childVarients = {
 	hidden: {
-		opacity: 0,
+		opacity: 1,
 		transition: {
 			duration: 0.3
 		}
 	},
 	visible: {
-		opacity: 1,
+		opacity: 0,
 		transition: {
-			duration: 0.3
+			duration: 0.3,
+			delay: 2
 		}
 	}
 };
@@ -62,11 +76,7 @@ const ProjectListOuter = ({
 			initial="hidden"
 			animate={isActive ? 'visible' : 'hidden'}
 		>
-			<ProjectListInner
-				variants={childVarients}
-				initial="hidden"
-				animate={isActive ? 'visible' : 'hidden'}
-			>
+			<ProjectListInner>
 				<ProjectList
 					data={musicVideos}
 					title="Music Videos"
@@ -81,6 +91,11 @@ const ProjectListOuter = ({
 					data={narratives}
 					title="Narrative"
 					id="narrative"
+				/>
+				<ProjectCover
+					variants={childVarients}
+					initial="hidden"
+					animate={isActive ? 'visible' : 'hidden'}
 				/>
 			</ProjectListInner>
 		</ProjectListOuterWrapper>

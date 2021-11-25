@@ -183,7 +183,7 @@ const Cursor = ({ cursorRefresh }) => {
 		setHideCursor(false);
 		setIsDragging(false);
 		setCursorText(false);
-	}, [router.asPath]);
+	}, [router.asPath, cursorRefresh]);
 
 	return (
 		<CursorWrapper isOnDevice={isOnDevice}>

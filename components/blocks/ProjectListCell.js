@@ -11,7 +11,7 @@ const ProjectListCellWrapper = styled.div`
 
 const LinkTag = styled.a``;
 
-const ProjectTitle = styled.p`
+const ProjectTitle = styled.div`
 	font-size: 27px;
 	line-height: 1.3;
 	position: relative;
@@ -72,7 +72,7 @@ const ProjectListCell = ({ data, dataLength, index }) => {
 			onMouseOut={() => setIsHovered(false)}
 			className="cursor-link"
 		>
-			<Link href={`/${data.node._meta.uid}`} passHref>
+			<Link scroll={false} href={`/${data.node._meta.uid}`} passHref>
 				<LinkTag>
 					<ProjectTitle className="cursor-link" isHovered={isHovered}>
 						{data.node.title}{index === dataLength - 1 ? '' : ', '}
@@ -92,7 +92,7 @@ const ProjectListCell = ({ data, dataLength, index }) => {
 									loop={true}
 									muted={true}
 									url={data.node.video_snippet?.url}
-									fileConfig={{ attributes: { poster: data.node.thumbnail.url } }}
+									fileconfig={{ attributes: { poster: data.node.thumbnail.url } }}
 								/>
 							</SnippetWrapper>
 						)}

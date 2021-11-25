@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Grid from '../elements/Grid';
 import InnerWrapper from '../elements/InnerWrapper';
+import { useInView } from 'react-intersection-observer';
 
 const FooterWrapper = styled.footer`
 	height: calc(100vh - 55px);
@@ -57,7 +58,8 @@ const Phone = styled.a`
 const Email = styled.a`
 	color: ${props => props.theme.colours.white};
 
-	transition: all ${props => props.theme.transitionSpeed.default} ease;
+	transition: color ${props => props.theme.transitionSpeed.default} ease;
+	transition: opacity ${props => props.theme.transitionSpeed.default} ease 150ms;
 
 	&:hover
 	{
@@ -91,7 +93,8 @@ const Content = styled.p`
 const GearList = styled.p`
 	color: ${props => props.theme.colours.white};
 
-	transition: all ${props => props.theme.transitionSpeed.default} ease;
+	transition: color ${props => props.theme.transitionSpeed.default} ease;
+	transition: opacity ${props => props.theme.transitionSpeed.default} ease 150ms;
 
 	&:hover
 	{
@@ -102,7 +105,8 @@ const GearList = styled.p`
 const SocialLink = styled.a`
 	color: ${props => props.theme.colours.white};
 
-	transition: all ${props => props.theme.transitionSpeed.default} ease;
+	transition: color ${props => props.theme.transitionSpeed.default} ease;
+	transition: opacity ${props => props.theme.transitionSpeed.default} ease 300ms;
 
 	&:hover
 	{
@@ -156,10 +160,16 @@ const Footer = ({ data, handleGearListPanelOpen }) => {
 		document.documentElement.scrollTop = 0;
 	};
 
+	const { ref, inView } = useInView({
+		triggerOnce: true,
+		threshold: 0.2,
+		rootMargin: '-15%'
+	});
+
 	return (
 		<>
 			{data && (
-				<FooterWrapper className="dim-wrapper" id="contact">
+				<FooterWrapper className="dim-wrapper" id="contact" ref={ref}>
 					<InnerWrapper>
 						<FooterInner>
 
@@ -170,7 +180,9 @@ const Footer = ({ data, handleGearListPanelOpen }) => {
 
 										{data.phone && (
 											<Phone
-												className="cursor-link"
+												className={`cursor-link view-element-fade-in ${
+													inView ? 'view-element-fade-in--in-view' : ''
+												}`}
 												href={`tel: ${data.phone}`}
 											>
 												{data.phone}
@@ -179,7 +191,9 @@ const Footer = ({ data, handleGearListPanelOpen }) => {
 
 										{data.email && (
 											<Email
-												className="cursor-link"
+												className={`cursor-link view-element-fade-in ${
+													inView ? 'view-element-fade-in--in-view' : ''
+												}`}
 												href={`mailto: ${data.email}`}
 											>
 												{data.email}
@@ -191,11 +205,19 @@ const Footer = ({ data, handleGearListPanelOpen }) => {
 									<SubDetails>
 
 										{data.footer_content && (
-											<Content>{data.footer_content}</Content>
+											<Content
+												className={`iew-element-fade-in ${
+													inView ? 'view-element-fade-in--in-view' : ''
+												}`}
+											>
+												{data.footer_content}
+											</Content>
 										)}
 
 										<GearList
-											className="cursor-link"
+											className={`cursor-link view-element-fade-in ${
+												inView ? 'view-element-fade-in--in-view' : ''
+											}`}
 											onClick={() => handleGearListPanelOpen()}
 										>
 											Gear List
@@ -203,7 +225,9 @@ const Footer = ({ data, handleGearListPanelOpen }) => {
 
 										{data.instagram && (
 											<SocialLink
-												className="cursor-link"
+												className={`cursor-link view-element-fade-in ${
+													inView ? 'view-element-fade-in--in-view' : ''
+												}`}
 												href={data.instagram.url}
 												target="_blank"
 											>
@@ -213,7 +237,9 @@ const Footer = ({ data, handleGearListPanelOpen }) => {
 
 										{data.vimeo && (
 											<SocialLink
-												className="cursor-link"
+												className={`cursor-link view-element-fade-in ${
+													inView ? 'view-element-fade-in--in-view' : ''
+												}`}
 												href={data.vimeo.url}
 												target="_blank"
 											>
@@ -225,7 +251,11 @@ const Footer = ({ data, handleGearListPanelOpen }) => {
 								</Grid>
 							</FooterTop>
 
-							<FooterBottom>
+							<FooterBottom
+								className={`cursor-link view-element-fade-in ${
+									inView ? 'view-element-fade-in--in-view' : ''
+								}`}
+							>
 								<Grid>
 									<Copyright>
 										&copy; {new Date().getFullYear()} Joey Knox

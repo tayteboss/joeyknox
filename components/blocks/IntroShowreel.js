@@ -29,7 +29,7 @@ const IntroShowreelWrapper = styled(motion.section)`
 
 const LinkTag = styled.a``;
 
-const IntroShowreel = ({ data }) => {
+const IntroShowreel = ({ data, hasVisited }) => {
 	const [isMobile, setIsMobile] = useState(false);
 
 	const handleResize = () => {
@@ -62,14 +62,15 @@ const IntroShowreel = ({ data }) => {
 			}
 		}
 	};
+
 	return (
 		<IntroShowreelWrapper
 			variants={videoVariant}
-			initial="hidden"
+			initial={hasVisited ? 'visible' : 'hidden'}
 			animate="visible"
 		>
 			{data.showreel_snippet && (
-				<Link href="/showreel" passHref>
+				<Link scroll={false} href="/showreel" passHref>
 					<LinkTag>
 						<ReactPlayer
 							width="100vw"

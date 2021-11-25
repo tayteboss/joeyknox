@@ -14,7 +14,7 @@ const pageTransitionVariants = {
 	visible: { opacity: 1, transition: { duration: 0.5 } }
 };
 
-const Home = ({ options, data, cursorRefresh }) => {
+const Home = ({ options, data, cursorRefresh, hasVisited }) => {
 	return (
 		<HomeWrapper
 			variants={pageTransitionVariants}
@@ -26,8 +26,8 @@ const Home = ({ options, data, cursorRefresh }) => {
 				title={options.site_title ? options.site_title : 'Joey Knox Cinematography'}
 				description={options.site_description ? options.site_description : null}
 			/>
-			<IntroMenu data={options} />
-			<IntroShowreel data={options} />
+			<IntroMenu data={options} hasVisited={hasVisited} />
+			<IntroShowreel data={options} hasVisited={hasVisited} />
 			<FeaturedProjects data={options} />
 			<Projects data={data} cursorRefresh={cursorRefresh} />
 		</HomeWrapper>

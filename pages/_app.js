@@ -15,11 +15,12 @@ import { useRouter } from 'next/router' ;
 const WebApp = ({ Component, pageProps }) => {
 	const [siteOptions] = useState(pageProps.options);
 	const [cursorRefresh, setCursorRefresh] = useState(0);
+	const [hasVisited, setHasVisited] = useState(false);
 	const router = useRouter();
 
 	const handleCursorRefresh = () => {
 		setCursorRefresh(cursorRefresh + 1);
-	}
+	};
 
 	const handleExitComplete = () => {
 		window.scrollTo(0, 0);
@@ -28,13 +29,17 @@ const WebApp = ({ Component, pageProps }) => {
 		setTimeout(() => {
 			handleCursorRefresh();
 		}, 1000);
-	}
+	};
 
 	useEffect(() => {
 		if ('scrollRestoration' in history) {
 			history.scrollRestoration = 'manual';
 		}
 		window.scrollTo(0, 0);
+
+		setTimeout(() => {
+			setHasVisited(true);
+		}, 4000);
 	}, []);
 
 	return (
@@ -48,6 +53,7 @@ const WebApp = ({ Component, pageProps }) => {
 						siteOptions={pageProps.options}
 						work={pageProps.work}
 						cursorRefresh={handleCursorRefresh}
+						hasVisited={hasVisited}
 					>
 						<AnimatePresence
 							exitBeforeEnter
@@ -57,6 +63,7 @@ const WebApp = ({ Component, pageProps }) => {
 								{...pageProps}
 								key={router.asPath}
 								cursorRefresh={handleCursorRefresh}
+								hasVisited={hasVisited}
 							/>
 						</AnimatePresence>
 					</Layout>

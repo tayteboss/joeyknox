@@ -305,7 +305,9 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 								)}
 							</StillsWrapper>
 
-							<GoBack href="/#work" className="cursor-link">Go Back</GoBack>
+							<Link scroll={false} href="/#work" passHref>
+								<GoBack className="cursor-link">Go Back</GoBack>
+							</Link>
 
 							<WorkIndex
 								ref={ref2}

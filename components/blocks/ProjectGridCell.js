@@ -60,13 +60,13 @@ const mediaVariants = {
 	hidden: {
 		opacity: 0,
 		transition: {
-			duration: 0.2
+			duration: 0.3
 		}
 	},
 	visible: {
 		opacity: 1,
 		transition: {
-			duration: 0.2
+			duration: 0.3
 		}
 	}
 };
@@ -94,8 +94,6 @@ const ProjectGridCell = ({ data }) => {
 			setIsInView(false);
 		}
 	}, [inView]);
-
-	console.log('isHovered', isHovered);
 
 	return (
 		<ProjectGridCellWrapper

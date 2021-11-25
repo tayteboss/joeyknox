@@ -4,6 +4,8 @@ import InnerWrapper from '../elements/InnerWrapper';
 import useEmblaCarousel from 'embla-carousel-react';
 import ReactPlayer from 'react-player';
 import Link from 'next/link';
+import { useInView } from 'react-intersection-observer';
+import { motion } from 'framer-motion';
 
 const FeaturedProjectsWrapper = styled.section`
 	background: ${props => props.theme.colours.white};
@@ -23,7 +25,7 @@ const Title = styled.p`
 	}
 `;
 
-const CarouselWrapper = styled.div`
+const CarouselWrapper = styled(motion.div)`
 	.embla
 	{
 		overflow: hidden;
@@ -81,7 +83,7 @@ const Embla = styled.div``;
 
 const EmblaContainer = styled.div``;
 
-const EmblaSlide = styled.div``;
+const EmblaSlide = styled(motion.div)``;
 
 const MediaWrapper = styled.div`
 	width: 100%;
@@ -131,6 +133,33 @@ const DetailsCategory = styled.p`
 
 const LinkTag = styled.a``;
 
+const parentVariants = {
+	hidden: {
+		opacity: 0
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.3,
+			when: 'beforeChildren',
+			staggerChildren: 0.2,
+			ease: 'easeInOut'
+		}
+	}
+};
+
+const childVariants = {
+	hidden: {
+		opacity: 0,
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.3
+		}
+	}
+};
+
 const FeaturedProjects = ({ data }) => {
 	const [emblaRef, embla] = useEmblaCarousel({
 		loop: false,
@@ -139,26 +168,44 @@ const FeaturedProjects = ({ data }) => {
 		inViewThreshold: 0.1
 	});
 
+	const { ref, inView } = useInView({
+		triggerOnce: true,
+		threshold: 0.2,
+		rootMargin: '-15%'
+	});
+
 	return (
 		<>
 			{data && (
-				<FeaturedProjectsWrapper id="work">
+				<FeaturedProjectsWrapper id="work" ref={ref}>
 
 					<InnerWrapper>
-						<Title>Featured</Title>
+						<Title
+							className={`view-element-fade-in ${
+								inView ? 'view-element-fade-in--in-view' : ''
+							}`}
+						>
+							Featured
+						</Title>
 					</InnerWrapper>
 
 					{data?.featured_projects && (
-						<CarouselWrapper className="cursor-drag">
+						<CarouselWrapper
+							className="cursor-drag"
+							variants={parentVariants}
+							initial="hidden"
+							animate={inView ? 'visible' : 'hidden'}
+						>
 							<Embla className="embla" ref={emblaRef}>
 								<EmblaContainer className="embla__container">
 									{data.featured_projects.map((item, index) => (
 										<EmblaSlide
 											className="embla__slide"
 											key={index}
+											variants={childVariants}
 										>
 
-											<Link href={`/${item.project?._meta.uid}`} passHref>
+											<Link scroll={false} href={`/${item.project?._meta.uid}`} passHref>
 												<LinkTag>
 													<MediaWrapper>
 														{item.project?.video_snippet && (

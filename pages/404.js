@@ -17,7 +17,7 @@ const Custom404 = ({ data, loading }) => {
 		<Custom404Wrapper className="custom-404-wrapper">
 			<InnerWrapper>
 				<Title>Sorry, we couldn't find that page</Title>
-				<Link href="/" passHref>
+				<Link scroll={false} href="/" passHref>
 					<LinkTag>Back to home</LinkTag>
 				</Link>
 			</InnerWrapper>

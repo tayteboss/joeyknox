@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Grid from '../elements/Grid';
 import ProjectListCell from './ProjectListCell';
+import { useInView } from 'react-intersection-observer';
+import { motion } from 'framer-motion';
 
 const ProjectListWrapper = styled.div`
 	margin-bottom: 80px;
@@ -36,6 +38,11 @@ const List = styled.div`
 	}
 `;
 
+const ProjectListCellMotionWrapper = styled.div`
+	display: inline;
+	position: relative;
+`;
+
 const ProjectList = ({ data, title }) => {
 	return (
 		<ProjectListWrapper>
@@ -43,12 +50,13 @@ const ProjectList = ({ data, title }) => {
 				<Title>{title}</Title>
 				<List>
 					{data.map((item, index) => (
-						<ProjectListCell
-							data={item}
-							key={index}
-							dataLength={data.length}
-							index={index}
-						/>
+						<ProjectListCellMotionWrapper key={index}>
+							<ProjectListCell
+								data={item}
+								dataLength={data.length}
+								index={index}
+							/>
+						</ProjectListCellMotionWrapper>
 					))}
 				</List>
 			</Grid>

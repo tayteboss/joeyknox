@@ -46,8 +46,8 @@ export const theme = {
 		innerWrapper: 1920
 	},
 	transitionSpeed: {
-		default: '200ms',
-		fast: '200ms',
+		default: '300ms',
+		fast: '300ms',
 		slow: '800ms'
 	}
 };
