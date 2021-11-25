@@ -18,6 +18,7 @@ const variants = {
 
 export default function Layout({ children, siteOptions, work, cursorRefresh, hasVisited }) {
 	const [gearListPanelOpen, setGearListPanelOpen] = useState(false);
+	const [siteReady, setSiteReady] = useState(false);
 	const router = useRouter();
 
 	useEffect(() => {
@@ -38,6 +39,12 @@ export default function Layout({ children, siteOptions, work, cursorRefresh, has
 			}
 		}
 	}, [router.asPath]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setSiteReady(true);
+		}, 3000);
+	}, []);
 
 	const handleGearListPanelOpen = () => {
 		setGearListPanelOpen(true);
@@ -62,7 +69,7 @@ export default function Layout({ children, siteOptions, work, cursorRefresh, has
 	return (
 		<>
 			<Cursor cursorRefresh={cursorRefresh} />
-			<Header siteOptions={siteOptions} work={work} />
+			{siteReady && <Header siteOptions={siteOptions} work={work} />}
 			<Main
 				initial="hidden"
 				animate="visible"
