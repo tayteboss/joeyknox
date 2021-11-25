@@ -358,7 +358,11 @@ export default function Header({ siteOptions, work }) {
 						</MenuInner>
 					</Menu>
 
-					<ClosePanel className="cursor-close" isOpen={isOpen} />
+					<ClosePanel
+						className="cursor-close"
+						isOpen={isOpen}
+						onClick={() => setIsOpen(false)}
+					/>
 				</>
 			)}
 
