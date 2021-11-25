@@ -93,6 +93,7 @@ const ProjectListCell = ({ data, dataLength, index }) => {
 									muted={true}
 									url={data.node.video_snippet?.url}
 									fileconfig={{ attributes: { poster: data.node.thumbnail.url } }}
+									playsinline
 								/>
 							</SnippetWrapper>
 						)}

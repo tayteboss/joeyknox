@@ -118,8 +118,9 @@ const ImageWrapper = styled.div`
 `;
 
 const GoBack = styled.a`
-	grid-column: 1 / 2;
+	grid-column: 1 / 3;
 	margin: 100px 0 120px;
+	font-size: 1rem;
 
 	@media ${props => props.theme.mediaBreakpoints.mobile}
 	{
@@ -152,6 +153,7 @@ const WorkIndexTitle = styled.p`
 const WorkList = styled.div``;
 
 const WorkItem = styled.a`
+	font-size: 1rem;
 	color: ${props => props.isWorkIndexHovered ? props.theme.colours.grey : props.theme.colours.black};
 
 	transition: all ${props => props.theme.transitionSpeed.default} ease;

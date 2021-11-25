@@ -20,6 +20,9 @@ const ProjectFiltersWrapper = styled.div`
 		z-index: 10;
 		margin-bottom: 0;
 		border-top: 1px solid ${props => props.theme.colours.grey};
+		opacity: 1 !important;
+
+		transition: all 800ms ease !important;
 	}
 `;
 
@@ -65,10 +68,9 @@ const ProjectFilters = ({
 
 	return (
 		<ProjectFiltersWrapper
-			className="project-filters-wrapper"
 			hasScrolled={hasScrolled}
 			ref={ref}
-			className={`view-element-fade-in ${
+			className={`project-filters-wrapper view-element-fade-in ${
 				inView ? 'view-element-fade-in--in-view' : ''
 			}`}
 		>

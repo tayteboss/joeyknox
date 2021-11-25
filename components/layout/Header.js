@@ -97,6 +97,11 @@ const MenuItem = styled(motion.a)`
 	&:hover
 	{
 		color: ${props => props.theme.colours.black};
+
+		@media ${props => props.theme.mediaBreakpoints.mobile}
+		{
+			color: ${props => props.theme.colours.grey};
+		}
 	}
 `;
 
@@ -114,6 +119,11 @@ const Phone = styled(motion.a)`
 	&:hover
 	{
 		color: ${props => props.theme.colours.black};
+
+		@media ${props => props.theme.mediaBreakpoints.mobile}
+		{
+			color: ${props => props.theme.colours.grey};
+		}
 	}
 `;
 
@@ -125,6 +135,11 @@ const Email = styled(motion.a)`
 	&:hover
 	{
 		color: ${props => props.theme.colours.black};
+
+		@media ${props => props.theme.mediaBreakpoints.mobile}
+		{
+			color: ${props => props.theme.colours.grey};
+		}
 	}
 `;
 
@@ -141,6 +156,11 @@ const WorkItem = styled(motion.p)`
 	&:hover
 	{
 		color: ${props => props.theme.colours.black};
+
+		@media ${props => props.theme.mediaBreakpoints.mobile}
+		{
+			color: ${props => props.theme.colours.grey};
+		}
 	}
 `;
 

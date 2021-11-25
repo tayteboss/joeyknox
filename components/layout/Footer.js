@@ -206,7 +206,7 @@ const Footer = ({ data, handleGearListPanelOpen }) => {
 
 										{data.footer_content && (
 											<Content
-												className={`iew-element-fade-in ${
+												className={`view-element-fade-in ${
 													inView ? 'view-element-fade-in--in-view' : ''
 												}`}
 											>

@@ -122,6 +122,7 @@ const ProjectGridCell = ({ data }) => {
 								loop={true}
 								muted={true}
 								url={data.node.video_snippet?.url}
+								playsinline
 							/>
 						</ReactPlayerWrapper>
 					)}
