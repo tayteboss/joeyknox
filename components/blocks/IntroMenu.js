@@ -20,9 +20,10 @@ const IntroMenuWrapper = styled(motion.div)`
 
 	@media ${props => props.theme.mediaBreakpoints.mobile}
 	{
-		top: 140px;
+		top: 180px;
 		bottom: initial;
 		padding-bottom: 0;
+		position: relative;
 	}
 `;
 

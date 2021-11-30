@@ -26,7 +26,7 @@ const ProjectFiltersWrapper = styled.div`
 	}
 `;
 
-const FilterTrigger = styled.button`
+const FilterTrigger = styled.div`
 	margin-right: 12%;
 	color: ${props => props.isActive ? props.theme.colours.black : props.theme.colours.grey};
 
