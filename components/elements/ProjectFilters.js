@@ -71,7 +71,7 @@ const ProjectFilters = ({
 			hasScrolled={hasScrolled}
 			ref={ref}
 			className={`project-filters-wrapper view-element-fade-in ${
-				inView ? 'view-element-fade-in--in-view' : ''
+				inView ? 'view-element-fade-in--in-view test' : ''
 			}`}
 		>
 			<FilterTrigger
