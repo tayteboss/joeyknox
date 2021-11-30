@@ -18,6 +18,7 @@ const MobileProjectCategoriesWrapper = styled.div`
 		margin-bottom: 0;
 		border-top: 1px solid ${props => props.theme.colours.grey};
 		border-bottom: 1px solid ${props => props.theme.colours.grey};
+		font-size: 1rem;
 
 		transition: all ${props => props.theme.transitionSpeed.slow} ease;
 	}
