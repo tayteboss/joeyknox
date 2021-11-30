@@ -38,6 +38,22 @@ const WebApp = ({ Component, pageProps }) => {
 		window.scrollTo(0, 0);
 
 		setTimeout(() => {
+			window.scrollTo(0, 0);
+		}, 200);
+
+		setTimeout(() => {
+			window.scrollTo(0, 0);
+		}, 400);
+
+		setTimeout(() => {
+			window.scrollTo(0, 0);
+		}, 600);
+
+		setTimeout(() => {
+			window.scrollTo(0, 0);
+		}, 800);
+
+		setTimeout(() => {
 			setHasVisited(true);
 		}, 4000);
 	}, []);
