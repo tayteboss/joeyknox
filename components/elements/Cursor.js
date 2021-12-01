@@ -70,9 +70,9 @@ const Cursor = ({ cursorRefresh }) => {
 			y: mouseYPosition,
 			transition: {
 				type: 'spring',
-				mass: 0.1,
-				stiffness: 500,
-				damping: 50,
+				mass: 0.05,
+				stiffness: 1000,
+				damping: 40,
 				ease: 'linear'
 			}
 		}
