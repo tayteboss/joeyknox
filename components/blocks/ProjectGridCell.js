@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import ReactPlayer from 'react-player';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import Link from 'next/link';
 
 const ProjectGridCellWrapper = styled.div`
 	margin-bottom: 30px;
 `;
+
+const LinkTag = styled.a``;
 
 const MediaWrapper = styled.div`
 	width: 100%;
@@ -95,6 +98,8 @@ const ProjectGridCell = ({ data }) => {
 		}
 	}, [inView]);
 
+	console.log('data', data);
+
 	return (
 		<ProjectGridCellWrapper
 			ref={ref}
@@ -102,33 +107,37 @@ const ProjectGridCell = ({ data }) => {
 				inView2 ? 'view-element-bottom-top--in-view' : ''
 			}`}
 		>
-			<MediaWrapper
-				onMouseOver={() => setIsHovered(true)}
-				onMouseOut={() => setIsHovered(false)}
-				ref={ref2}
-			>
-				<AnimatePresence>
-					{isHovered && (
-						<ReactPlayerWrapper
-							variants={mediaVariants}
-							initial="hidden"
-							animate="visible"
-							exit="hidden"
-						>
-							<ReactPlayer
-								width="100%"
-								height="100%"
-								playing={true}
-								loop={true}
-								muted={true}
-								url={data.node.video_snippet?.url}
-								playsinline
-							/>
-						</ReactPlayerWrapper>
-					)}
-				</AnimatePresence>
-				<Image src={data.node.thumbnail.url} />
-			</MediaWrapper>
+			<Link href={`/${data.node._meta.uid}`} passHref>
+				<LinkTag>
+					<MediaWrapper
+						onMouseOver={() => setIsHovered(true)}
+						onMouseOut={() => setIsHovered(false)}
+						ref={ref2}
+					>
+							<AnimatePresence>
+								{isHovered && (
+									<ReactPlayerWrapper
+										variants={mediaVariants}
+										initial="hidden"
+										animate="visible"
+										exit="hidden"
+									>
+										<ReactPlayer
+											width="100%"
+											height="100%"
+											playing={true}
+											loop={true}
+											muted={true}
+											url={data.node.video_snippet?.url}
+											playsinline
+										/>
+									</ReactPlayerWrapper>
+								)}
+							</AnimatePresence>
+						<Image src={data.node.thumbnail.url} />
+					</MediaWrapper>
+				</LinkTag>
+			</Link>
 			<Details>
 				{data.node.title && <Title>{data.node.title}</Title>}
 				{data.node.date && <Year>{data.node.date}</Year>}
