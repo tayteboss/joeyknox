@@ -98,8 +98,6 @@ const ProjectGridCell = ({ data }) => {
 		}
 	}, [inView]);
 
-	console.log('data', data);
-
 	return (
 		<ProjectGridCellWrapper
 			ref={ref}
@@ -134,7 +132,9 @@ const ProjectGridCell = ({ data }) => {
 									</ReactPlayerWrapper>
 								)}
 							</AnimatePresence>
-						<Image src={data.node.thumbnail.url} />
+						{data.node.thumbnail && (
+							<Image src={data.node.thumbnail.url} />
+						)}
 					</MediaWrapper>
 				</LinkTag>
 			</Link>
