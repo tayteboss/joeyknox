@@ -223,6 +223,19 @@ const Footer = ({ data, handleGearListPanelOpen }) => {
 											Gear List
 										</GearList>
 
+
+										{data.cv && (
+											<SocialLink
+												className={`cursor-link view-element-fade-in ${
+													inView ? 'view-element-fade-in--in-view' : ''
+												}`}
+												href={data.cv.url}
+												target="_blank"
+											>
+												CV
+											</SocialLink>
+										)}
+
 										{data.instagram && (
 											<SocialLink
 												className={`cursor-link view-element-fade-in ${
