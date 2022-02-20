@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import InnerWrapper from '../elements/InnerWrapper';
 import Grid from '../elements/Grid';
@@ -11,9 +10,26 @@ const IntroMenuWrapper = styled(motion.div)`
 	background: ${props => props.theme.colours.white};
 	z-index: 3;
 	padding-bottom: 17px;
-	opacity: ${props => props.hasScrolled ? 0 : 1};
-	visibility: ${props => props.hasScrolled ? 'hidden' : 'visible'};
-	pointer-events: ${props => props.hasScrolled ? 'none' : 'all'};
+
+	transition: all 10ms ease;
+	transition-delay: 10ms;
+
+	@media ${props => props.theme.mediaBreakpoints.mobile}
+	{
+		top: 180px;
+		bottom: initial;
+		padding-bottom: 0;
+		position: relative;
+	}
+`;
+
+const IntroMenuWrapperDefault = styled.div`
+	position: fixed;
+	bottom: calc(100vh - 270px);
+	background: ${props => props.theme.colours.white};
+	z-index: 3;
+	padding-bottom: 17px;
+	opacity: 1;
 
 	transition: all 10ms ease;
 	transition-delay: 10ms;
@@ -95,48 +111,114 @@ const childVariant = {
 
 const IntroMenu = ({ data, hasVisited }) => {
 	return (
-		<IntroMenuWrapper
-			variants={parentVariant}
-			initial={hasVisited ? 'visible' : 'hidden'}
-			animate="visible"
-			className="dim-wrapper"
-		>
-			<InnerWrapper>
-				<Grid align="end">
-					<Intro variants={childVariant}>
-						{data.site_description && data.site_description}
-					</Intro>
-					<MenuItem
-						href="#work"
-						className="cursor-link"
-						variants={childVariant}
-					>
-						Work
-					</MenuItem>
-					<MenuItem
-						href="#about"
-						className="cursor-link"
-						variants={childVariant}
-					>
-						About
-					</MenuItem>
-					<MenuItem
-						href="#contact"
-						className="cursor-link"
-						variants={childVariant}
-					>
-						Contact
-					</MenuItem>
-					<MenuItem
-						href="/showreel"
-						className="cursor-link"
-						variants={childVariant}
-					>
-						Showreel
-					</MenuItem>
-				</Grid>
-			</InnerWrapper>
-		</IntroMenuWrapper>
+		<>
+			{hasVisited ? (
+				<IntroMenuWrapperDefault className="dim-wrapper">
+					<InnerWrapper>
+						<Grid align="end">
+							<Intro
+								variants={childVariant}
+								initial={hasVisited ? 'visible' : 'hidden'}
+								animate="visible"
+							>
+								{data.site_description && data.site_description}
+							</Intro>
+							<MenuItem
+								href="#work"
+								className="cursor-link"
+								variants={childVariant}
+								initial={hasVisited ? 'visible' : 'hidden'}
+								animate="visible"
+							>
+								Work
+							</MenuItem>
+							<MenuItem
+								href="#about"
+								className="cursor-link"
+								variants={childVariant}
+								initial={hasVisited ? 'visible' : 'hidden'}
+								animate="visible"
+							>
+								About
+							</MenuItem>
+							<MenuItem
+								href="#contact"
+								className="cursor-link"
+								variants={childVariant}
+								initial={hasVisited ? 'visible' : 'hidden'}
+								animate="visible"
+							>
+								Contact
+							</MenuItem>
+							<MenuItem
+								href="/showreel"
+								className="cursor-link"
+								variants={childVariant}
+								initial={hasVisited ? 'visible' : 'hidden'}
+								animate="visible"
+							>
+								Showreel
+							</MenuItem>
+						</Grid>
+					</InnerWrapper>
+				</IntroMenuWrapperDefault>
+			) : (
+				<IntroMenuWrapper
+					variants={parentVariant}
+					initial={hasVisited ? 'visible' : 'hidden'}
+					animate="visible"
+					className="dim-wrapper"
+				>
+					<InnerWrapper>
+						<Grid align="end">
+							<Intro
+								variants={childVariant}
+								initial={hasVisited ? 'visible' : 'hidden'}
+								animate="visible"
+							>
+								{data.site_description && data.site_description}
+							</Intro>
+							<MenuItem
+								href="#work"
+								className="cursor-link"
+								variants={childVariant}
+								initial={hasVisited ? 'visible' : 'hidden'}
+								animate="visible"
+							>
+								Work
+							</MenuItem>
+							<MenuItem
+								href="#about"
+								className="cursor-link"
+								variants={childVariant}
+								initial={hasVisited ? 'visible' : 'hidden'}
+								animate="visible"
+							>
+								About
+							</MenuItem>
+							<MenuItem
+								href="#contact"
+								className="cursor-link"
+								variants={childVariant}
+								initial={hasVisited ? 'visible' : 'hidden'}
+								animate="visible"
+							>
+								Contact
+							</MenuItem>
+							<MenuItem
+								href="/showreel"
+								className="cursor-link"
+								variants={childVariant}
+								initial={hasVisited ? 'visible' : 'hidden'}
+								animate="visible"
+							>
+								Showreel
+							</MenuItem>
+						</Grid>
+					</InnerWrapper>
+				</IntroMenuWrapper>
+			)}
+		</>
 	);
 };
 

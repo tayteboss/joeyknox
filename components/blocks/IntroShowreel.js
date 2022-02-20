@@ -27,6 +27,29 @@ const IntroShowreelWrapper = styled(motion.section)`
 	}
 `;
 
+const IntroShowreelWrapperHasVisited = styled(motion.section)`
+	width: 100%;
+	padding-top: 270px;
+	position: relative;
+	z-index: 5;
+	overflow: hidden;
+	pointer-events: none;
+
+	@media ${props => props.theme.mediaBreakpoints.mobile}
+	{
+		padding-top: 200px;
+		margin-top: 0;
+	}
+
+	video
+	{
+		object-fit: cover;
+		height: 100vh;
+		width: 100vw;
+		pointer-events: all;
+	}
+`;
+
 const LinkTag = styled.a``;
 
 const IntroShowreel = ({ data, hasVisited }) => {
@@ -64,28 +87,51 @@ const IntroShowreel = ({ data, hasVisited }) => {
 	};
 
 	return (
-		<IntroShowreelWrapper
-			variants={videoVariant}
-			initial={hasVisited ? 'visible' : 'hidden'}
-			animate="visible"
-		>
-			{data.showreel_snippet && (
-				<Link scroll={false} href="/showreel" passHref>
-					<LinkTag>
-						<ReactPlayer
-							width="100vw"
-							height={isMobile ? '100%' : '100vh'}
-							playing={true}
-							loop={true}
-							muted={true}
-							url={data.showreel_snippet?.url}
-							playsinline={true}
-							className="cursor-showreel"
-						/>
-					</LinkTag>
-				</Link>
+		<>
+			{hasVisited ? (
+				<IntroShowreelWrapperHasVisited>
+					{data.showreel_snippet && (
+						<Link scroll={false} href="/showreel" passHref>
+							<LinkTag>
+								<ReactPlayer
+									width="100vw"
+									height={isMobile ? '100%' : '100vh'}
+									playing={true}
+									loop={true}
+									muted={true}
+									url={data.showreel_snippet?.url}
+									playsinline={true}
+									className="cursor-showreel"
+								/>
+							</LinkTag>
+						</Link>
+					)}
+				</IntroShowreelWrapperHasVisited>
+			) : (
+				<IntroShowreelWrapper
+					variants={videoVariant}
+					initial={hasVisited ? 'visible' : 'hidden'}
+					animate="visible"
+				>
+					{data.showreel_snippet && (
+						<Link scroll={false} href="/showreel" passHref>
+							<LinkTag>
+								<ReactPlayer
+									width="100vw"
+									height={isMobile ? '100%' : '100vh'}
+									playing={true}
+									loop={true}
+									muted={true}
+									url={data.showreel_snippet?.url}
+									playsinline={true}
+									className="cursor-showreel"
+								/>
+							</LinkTag>
+						</Link>
+					)}
+				</IntroShowreelWrapper>
 			)}
-		</IntroShowreelWrapper>
+		</>
 	);
 };
 

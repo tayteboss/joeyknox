@@ -222,7 +222,7 @@ const childVariant = {
 	}
 };
 
-export default function Header({ siteOptions, work }) {
+export default function Header({ siteOptions, work, hasVisited }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [hasScrolled, setHasScrolled] = useState(false);
 	const [isHome, setIsHome] = useState(false);
@@ -265,7 +265,7 @@ export default function Header({ siteOptions, work }) {
 				<>
 					<HeaderWrapper
 						variants={isHome ? headerVariant : null}
-						initial="hidden"
+						initial={hasVisited ? 'visible' : 'hidden'}
 						animate="visible"
 						className="dim-wrapper"
 					>
@@ -298,30 +298,15 @@ export default function Header({ siteOptions, work }) {
 						>
 
 							<MenuList>
-								<MenuItem
-									href="/#work"
-									className="cursor-link"
-									variants={childVariant}
-									onClick={() => setIsOpen(false)}
-								>
-									Work
-								</MenuItem>
-								<MenuItem
-									href="/#about"
-									className="cursor-link"
-									variants={childVariant}
-									onClick={() => setIsOpen(false)}
-								>
-									About
-								</MenuItem>
-								<MenuItem
-									href="/#contact"
-									className="cursor-link"
-									variants={childVariant}
-									onClick={() => setIsOpen(false)}
-								>
-									Contact
-								</MenuItem>
+								<Link href="/" passHref>
+									<MenuItem
+										className="cursor-link"
+										variants={childVariant}
+										onClick={() => setIsOpen(false)}
+									>
+										Home
+									</MenuItem>
+								</Link>
 								<Link scroll={false} href="/showreel" passHref>
 									<MenuItem
 										className="cursor-link"

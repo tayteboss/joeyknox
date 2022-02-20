@@ -10,7 +10,8 @@ import Layout from '../components/common/Layout';
 import Head from '../components/common/Head';
 import { getAllWork, getSiteOptions } from '../lib/source/prismic/api';
 import { AnimatePresence } from 'framer-motion';
-import { useRouter } from 'next/router' ;
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 const WebApp = ({ Component, pageProps }) => {
 	const [siteOptions] = useState(pageProps.options);
@@ -35,6 +36,11 @@ const WebApp = ({ Component, pageProps }) => {
 		if ('scrollRestoration' in history) {
 			history.scrollRestoration = 'manual';
 		}
+
+		if (Cookies.get('jk-visit')) {
+			setHasVisited(true);
+		}
+
 		window.scrollTo(0, 0);
 
 		setTimeout(() => {
@@ -55,6 +61,7 @@ const WebApp = ({ Component, pageProps }) => {
 
 		setTimeout(() => {
 			setHasVisited(true);
+			Cookies.set('jk-visit', '1', { expires: 1 });
 		}, 4000);
 	}, []);
 

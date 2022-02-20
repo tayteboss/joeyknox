@@ -99,50 +99,54 @@ const ProjectGridCell = ({ data }) => {
 	}, [inView]);
 
 	return (
-		<ProjectGridCellWrapper
-			ref={ref}
-			className={`cursor-link view-element-bottom-top ${
-				inView2 ? 'view-element-bottom-top--in-view' : ''
-			}`}
-		>
-			<Link href={`/${data.node._meta.uid}`} passHref>
-				<LinkTag>
-					<MediaWrapper
-						onMouseOver={() => setIsHovered(true)}
-						onMouseOut={() => setIsHovered(false)}
-						ref={ref2}
-					>
-							<AnimatePresence>
-								{isHovered && (
-									<ReactPlayerWrapper
-										variants={mediaVariants}
-										initial="hidden"
-										animate="visible"
-										exit="hidden"
-									>
-										<ReactPlayer
-											width="100%"
-											height="100%"
-											playing={true}
-											loop={true}
-											muted={true}
-											url={data.node.video_snippet?.url}
-											playsinline
-										/>
-									</ReactPlayerWrapper>
+		<>
+			{!data.is_private && (
+				<ProjectGridCellWrapper
+					ref={ref}
+					className={`cursor-link view-element-bottom-top ${
+						inView2 ? 'view-element-bottom-top--in-view' : ''
+					}`}
+				>
+					<Link href={`/${data.node._meta.uid}`} passHref>
+						<LinkTag>
+							<MediaWrapper
+								onMouseOver={() => setIsHovered(true)}
+								onMouseOut={() => setIsHovered(false)}
+								ref={ref2}
+							>
+									<AnimatePresence>
+										{isHovered && (
+											<ReactPlayerWrapper
+												variants={mediaVariants}
+												initial="hidden"
+												animate="visible"
+												exit="hidden"
+											>
+												<ReactPlayer
+													width="100%"
+													height="100%"
+													playing={true}
+													loop={true}
+													muted={true}
+													url={data.node.video_snippet?.url}
+													playsinline
+												/>
+											</ReactPlayerWrapper>
+										)}
+									</AnimatePresence>
+								{data.node.thumbnail && (
+									<Image src={data.node.thumbnail.url} />
 								)}
-							</AnimatePresence>
-						{data.node.thumbnail && (
-							<Image src={data.node.thumbnail.url} />
-						)}
-					</MediaWrapper>
-				</LinkTag>
-			</Link>
-			<Details>
-				{data.node.title && <Title>{data.node.title}</Title>}
-				{data.node.date && <Year>{data.node.date}</Year>}
-			</Details>
-		</ProjectGridCellWrapper>
+							</MediaWrapper>
+						</LinkTag>
+					</Link>
+					<Details>
+						{data.node.title && <Title>{data.node.title}</Title>}
+						{data.node.date && <Year>{data.node.date}</Year>}
+					</Details>
+				</ProjectGridCellWrapper>
+			)}
+		</>
 	);
 };
 

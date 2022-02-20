@@ -67,40 +67,44 @@ const ProjectListCell = ({ data, dataLength, index }) => {
 	};
 
 	return (
-		<ProjectListCellWrapper
-			onMouseOver={() => setIsHovered(true)}
-			onMouseOut={() => setIsHovered(false)}
-			className="cursor-link"
-		>
-			<Link scroll={false} href={`/${data.node._meta.uid}`} passHref>
-				<LinkTag>
-					<ProjectTitle className="cursor-link" isHovered={isHovered}>
-						{data.node.title}{index === dataLength - 1 ? '' : ', '}
-					</ProjectTitle>
-					<AnimatePresence>
-						{isHovered && (
-							<SnippetWrapper
-								variants={snippetVariants}
-								initial="hidden"
-								animate="visible"
-								exit="hidden"
-							>
-								<ReactPlayer
-									width="100%"
-									height="100%"
-									playing={true}
-									loop={true}
-									muted={true}
-									url={data.node.video_snippet?.url}
-									fileconfig={{ attributes: { poster: data.node.thumbnail?.url } }}
-									playsinline
-								/>
-							</SnippetWrapper>
-						)}
-					</AnimatePresence>
-				</LinkTag>
-			</Link>
-		</ProjectListCellWrapper>
+		<>
+			{!data.is_private && (
+				<ProjectListCellWrapper
+					onMouseOver={() => setIsHovered(true)}
+					onMouseOut={() => setIsHovered(false)}
+					className="cursor-link"
+				>
+					<Link scroll={false} href={`/${data.node._meta.uid}`} passHref>
+						<LinkTag>
+							<ProjectTitle className="cursor-link" isHovered={isHovered}>
+								{data.node.title}{index === dataLength - 1 ? '' : ', '}
+							</ProjectTitle>
+							<AnimatePresence>
+								{isHovered && (
+									<SnippetWrapper
+										variants={snippetVariants}
+										initial="hidden"
+										animate="visible"
+										exit="hidden"
+									>
+										<ReactPlayer
+											width="100%"
+											height="100%"
+											playing={true}
+											loop={true}
+											muted={true}
+											url={data.node.video_snippet?.url}
+											fileconfig={{ attributes: { poster: data.node.thumbnail?.url } }}
+											playsinline
+										/>
+									</SnippetWrapper>
+								)}
+							</AnimatePresence>
+						</LinkTag>
+					</Link>
+				</ProjectListCellWrapper>
+			)}
+		</>
 	);
 };
 
