@@ -16,6 +16,7 @@ const IntroShowreelWrapper = styled(motion.section)`
 	{
 		padding-top: 200px;
 		margin-top: 0;
+		height: 100vh;
 	}
 
 	video
@@ -39,6 +40,7 @@ const IntroShowreelWrapperHasVisited = styled(motion.section)`
 	{
 		padding-top: 200px;
 		margin-top: 0;
+		height: 100vh;
 	}
 
 	video
@@ -102,6 +104,13 @@ const IntroShowreel = ({ data, hasVisited }) => {
 									url={data.showreel_snippet?.url}
 									playsinline={true}
 									className="cursor-showreel"
+									config={{
+										file: {
+											attributes: {
+												poster: data.showreel_fallback_image.url
+											}
+										}
+									}}
 								/>
 							</LinkTag>
 						</Link>
@@ -125,6 +134,13 @@ const IntroShowreel = ({ data, hasVisited }) => {
 									url={data.showreel_snippet?.url}
 									playsinline={true}
 									className="cursor-showreel"
+									config={{
+										file: {
+											attributes: {
+												poster: data.showreel_fallback_image.url
+											}
+										}
+									}}
 								/>
 							</LinkTag>
 						</Link>
