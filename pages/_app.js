@@ -12,6 +12,17 @@ import { getAllWork, getSiteOptions } from '../lib/source/prismic/api';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+import styled from 'styled-components';
+
+const ComingSoon = styled.div`
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: black;
+	color: white;
+`;
 
 const WebApp = ({ Component, pageProps }) => {
 	const [siteOptions] = useState(pageProps.options);
@@ -72,7 +83,12 @@ const WebApp = ({ Component, pageProps }) => {
 					<Head />
 					<DefaultSeo />
 					<GlobalStyles />
-					<Layout
+
+					<ComingSoon>
+						Site Coming Soon
+					</ComingSoon>
+
+					{/* <Layout
 						siteOptions={pageProps.options}
 						work={pageProps.work}
 						cursorRefresh={handleCursorRefresh}
@@ -89,7 +105,7 @@ const WebApp = ({ Component, pageProps }) => {
 								hasVisited={hasVisited}
 							/>
 						</AnimatePresence>
-					</Layout>
+					</Layout> */}
 				</SiteOptionsProvider>
 			</ApolloProvider>
 		</ThemeProvider>
