@@ -68,7 +68,7 @@ const ProjectListCell = ({ data, dataLength, index }) => {
 
 	return (
 		<>
-			{!data.is_private && (
+			{!data.node.is_private && (
 				<ProjectListCellWrapper
 					onMouseOver={() => setIsHovered(true)}
 					onMouseOut={() => setIsHovered(false)}

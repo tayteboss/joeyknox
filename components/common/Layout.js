@@ -70,8 +70,6 @@ export default function Layout({ children, siteOptions, work, cursorRefresh, has
 		});
 	};
 
-	console.log('siteReady', siteReady);
-
 	return (
 		<>
 			<Cursor cursorRefresh={cursorRefresh} />
