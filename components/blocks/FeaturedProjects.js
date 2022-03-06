@@ -216,7 +216,7 @@ const FeaturedProjects = ({ data }) => {
 																loop={true}
 																muted={true}
 																url={item.project?.video_snippet?.url}
-																playsinline={true}
+																playsInline
 															/>
 														)}
 														{item.project?.thumbnail && (

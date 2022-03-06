@@ -128,7 +128,7 @@ const ProjectGridCell = ({ data }) => {
 													playing={true}
 													loop={true}
 													muted={true}
-													playsinline={true}
+													playsInline
 													url={data.node.video_snippet?.url}
 												/>
 											</ReactPlayerWrapper>

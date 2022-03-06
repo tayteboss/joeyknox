@@ -102,7 +102,7 @@ const IntroShowreel = ({ data, hasVisited }) => {
 									loop={true}
 									muted={true}
 									url={data.showreel_snippet?.url}
-									playsinline={true}
+									playsInline
 									className="cursor-showreel"
 									config={{
 										file: {
