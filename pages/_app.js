@@ -83,12 +83,7 @@ const WebApp = ({ Component, pageProps }) => {
 					<Head />
 					<DefaultSeo />
 					<GlobalStyles />
-
-					<ComingSoon>
-						Site Coming Soon
-					</ComingSoon>
-
-					{/* <Layout
+					<Layout
 						siteOptions={pageProps.options}
 						work={pageProps.work}
 						cursorRefresh={handleCursorRefresh}
@@ -105,7 +100,7 @@ const WebApp = ({ Component, pageProps }) => {
 								hasVisited={hasVisited}
 							/>
 						</AnimatePresence>
-					</Layout> */}
+					</Layout>
 				</SiteOptionsProvider>
 			</ApolloProvider>
 		</ThemeProvider>
