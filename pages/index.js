@@ -24,7 +24,7 @@ const Home = ({ options, data, cursorRefresh, hasVisited }) => {
 		>
 			<NextSeo 
 				title={options.site_title ? options.site_title : 'Joey Knox Cinematography'}
-				description={options.site_description ? options.site_description : null}
+				description="Joey Knox is an award-winning Australian cinematographer working between commercials, music videos and narrative films."
 			/>
 			<IntroMenu data={options} hasVisited={hasVisited} />
 			<IntroShowreel data={options} hasVisited={hasVisited} />

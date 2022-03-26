@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import InnerWrapper from '../elements/InnerWrapper';
 import Grid from '../elements/Grid';
-import _ from 'lodash';
 import { motion } from 'framer-motion';
+import { RichText } from 'prismic-reactjs';
 
 const IntroMenuWrapper = styled(motion.div)`
 	position: fixed;
@@ -45,6 +45,7 @@ const IntroMenuWrapperDefault = styled.div`
 
 const Intro = styled(motion.div)`
 	grid-column: span 3;
+	white-space: nowrap;
 
 	@media ${props => props.theme.mediaBreakpoints.tabletPortrait}
 	{
@@ -80,6 +81,8 @@ const MenuItem = styled(motion.a)`
 	}
 `;
 
+const IntroContent = styled.div``;
+
 const parentVariant = {
 	hidden: {
 		opacity: 0
@@ -110,19 +113,22 @@ const childVariant = {
 };
 
 const IntroMenu = ({ data, hasVisited }) => {
+	console.log('data', data);
 	return (
 		<>
 			{hasVisited ? (
 				<IntroMenuWrapperDefault className="dim-wrapper">
 					<InnerWrapper>
 						<Grid align="end">
-							<Intro
-								variants={childVariant}
-								initial={hasVisited ? 'visible' : 'hidden'}
-								animate="visible"
-							>
-								{data.site_description && data.site_description}
-							</Intro>
+							{true && (
+								<Intro
+									variants={childVariant}
+									initial={hasVisited ? 'visible' : 'hidden'}
+									animate="visible"
+								>
+									<RichText render={data.site_description} />
+								</Intro>
+							)}
 							<MenuItem
 								href="#work"
 								className="cursor-link"
@@ -171,13 +177,15 @@ const IntroMenu = ({ data, hasVisited }) => {
 				>
 					<InnerWrapper>
 						<Grid align="end">
-							<Intro
-								variants={childVariant}
-								initial={hasVisited ? 'visible' : 'hidden'}
-								animate="visible"
-							>
-								{data.site_description && data.site_description}
-							</Intro>
+							{data.site_description && (
+								<Intro
+									variants={childVariant}
+									initial={hasVisited ? 'visible' : 'hidden'}
+									animate="visible"
+								>
+									<RichText render={data.site_description} />
+								</Intro>
+							)}
 							<MenuItem
 								href="#work"
 								className="cursor-link"

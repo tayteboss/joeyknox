@@ -249,7 +249,7 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 				>
 					<NextSeo 
 						title={data.title ? `${data.title} | Joey Knox Cinematography` : 'Joey Knox Cinematography'}
-						description={options.site_description ? options.site_description : null}
+						description="Joey Knox is an award-winning Australian cinematographer working between commercials, music videos and narrative films."
 					/>
 					<InnerWrapper>
 						<Grid>
