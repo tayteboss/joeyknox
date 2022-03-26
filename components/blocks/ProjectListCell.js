@@ -68,16 +68,16 @@ const ProjectListCell = ({ data, dataLength, index }) => {
 
 	return (
 		<>
-			{!data.node.is_private && (
+			{!data.project.is_private && (
 				<ProjectListCellWrapper
 					onMouseOver={() => setIsHovered(true)}
 					onMouseOut={() => setIsHovered(false)}
 					className="cursor-link"
 				>
-					<Link scroll={false} href={`/${data.node._meta.uid}`} passHref>
+					<Link scroll={false} href={`/${data.project._meta.uid}`} passHref>
 						<LinkTag>
 							<ProjectTitle className="cursor-link" isHovered={isHovered}>
-								{data.node.title}{index === dataLength - 1 ? '' : ', '}
+								{data.project.title}{index === dataLength - 1 ? '' : ', '}
 							</ProjectTitle>
 							<AnimatePresence>
 								{isHovered && (
@@ -93,8 +93,8 @@ const ProjectListCell = ({ data, dataLength, index }) => {
 											playing={true}
 											loop={true}
 											muted={true}
-											url={data.node.video_snippet?.url}
-											fileconfig={{ attributes: { poster: data.node.thumbnail?.url } }}
+											url={data.project.video_snippet?.url}
+											fileconfig={{ attributes: { poster: data.project.thumbnail?.url } }}
 											playsInline
 										/>
 									</SnippetWrapper>

@@ -107,7 +107,7 @@ const ProjectGridCell = ({ data }) => {
 						inView2 ? 'view-element-bottom-top--in-view' : ''
 					}`}
 				>
-					<Link href={`/${data.node._meta.uid}`} passHref>
+					<Link href={`/${data.project._meta.uid}`} passHref>
 						<LinkTag>
 							<MediaWrapper
 								onMouseOver={() => setIsHovered(true)}
@@ -129,20 +129,20 @@ const ProjectGridCell = ({ data }) => {
 													loop={true}
 													muted={true}
 													playsInline
-													url={data.node.video_snippet?.url}
+													url={data.project.video_snippet?.url}
 												/>
 											</ReactPlayerWrapper>
 										)}
 									</AnimatePresence>
-								{data.node.thumbnail && (
-									<Image src={data.node.thumbnail.url} />
+								{data.project.thumbnail && (
+									<Image src={data.project.thumbnail.url} />
 								)}
 							</MediaWrapper>
 						</LinkTag>
 					</Link>
 					<Details>
-						{data.node.title && <Title>{data.node.title}</Title>}
-						{data.node.date && <Year>{data.node.date}</Year>}
+						{data.project.title && <Title>{data.project.title}</Title>}
+						{data.project.date && <Year>{data.project.date}</Year>}
 					</Details>
 				</ProjectGridCellWrapper>
 			)}

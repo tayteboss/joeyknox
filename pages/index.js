@@ -29,7 +29,11 @@ const Home = ({ options, data, cursorRefresh, hasVisited }) => {
 			<IntroMenu data={options} hasVisited={hasVisited} />
 			<IntroShowreel data={options} hasVisited={hasVisited} />
 			<FeaturedProjects data={options} />
-			<Projects data={data} cursorRefresh={cursorRefresh} />
+			<Projects
+				data={data}
+				optionsData={options}
+				cursorRefresh={cursorRefresh}
+			/>
 		</HomeWrapper>
 	);
 };

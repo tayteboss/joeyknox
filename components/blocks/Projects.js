@@ -14,7 +14,7 @@ const ProjectsWrapper = styled.section`
 	padding-bottom: 90px;
 `;
 
-const Projects = ({ data, cursorRefresh }) => {
+const Projects = ({ data, cursorRefresh, optionsData }) => {
 	const [commercials, setCommercials] = useState([]);
 	const [musicVideos, setMusicVideos] = useState([]);
 	const [narratives, setNarratives] = useState([]);
@@ -43,16 +43,10 @@ const Projects = ({ data, cursorRefresh }) => {
 		const body = document.querySelector('body');
 		body.classList.add('is-list');
 
-		data.map((item) => {
-			if (item.node.category === 'Commercial') {
-				setCommercials(commercials => [...commercials, item]);
-			} else if (item.node.category === 'Music Video') {
-				setMusicVideos(musicVideos => [...musicVideos, item]);
-			} else if (item.node.category === 'Narrative') {
-				setNarratives(narratives => [...narratives, item]);
-			}
-		});
-	}, []);
+		if (optionsData.commercial) setCommercials(optionsData.commercial);
+		if (optionsData.music_videos) setMusicVideos(optionsData.music_videos);
+		if (optionsData.narrative) setNarratives(optionsData.narrative);
+	}, [optionsData]);
 
 	return (
 		<ProjectsWrapper>
