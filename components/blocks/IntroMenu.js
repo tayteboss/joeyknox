@@ -113,7 +113,6 @@ const childVariant = {
 };
 
 const IntroMenu = ({ data, hasVisited }) => {
-	console.log('data', data);
 	return (
 		<>
 			{hasVisited ? (

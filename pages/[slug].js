@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import { getAllWork, getSingleWork, getSiteOptions } from '../lib/source/prismic/api';
+import {
+	getAllWork,
+	getSingleWork,
+	getSiteOptions
+} from '../lib/source/prismic/api';
 import styled from 'styled-components';
 import InnerWrapper from '../components/elements/InnerWrapper';
 import Grid from '../components/elements/Grid';
@@ -12,8 +16,7 @@ import { NextSeo } from 'next-seo';
 const Project = styled(motion.div)`
 	padding-top: 246px;
 
-	@media ${props => props.theme.mediaBreakpoints.mobile}
-	{
+	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		padding-top: 185px;
 	}
 `;
@@ -22,8 +25,7 @@ const Title = styled.p`
 	grid-column: 1 / 3;
 	margin-bottom: 25px;
 
-	@media ${props => props.theme.mediaBreakpoints.mobile}
-	{
+	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		grid-column: 1 / 3;
 		margin-bottom: 15px;
 	}
@@ -32,37 +34,32 @@ const Title = styled.p`
 const Date = styled.p`
 	grid-column: 3 / 5;
 
-	@media ${props => props.theme.mediaBreakpoints.tabletMedium}
-	{
+	@media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
 		grid-column: 5 / 8;
 	}
 
-	@media ${props => props.theme.mediaBreakpoints.mobile}
-	{
+	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		display: none;
 	}
 `;
 
 const CreditsTrigger = styled.p`
 	grid-column: 5 / 6;
-	color: ${props => props.theme.colours.grey};
+	color: ${(props) => props.theme.colours.grey};
 
-	transition: all ${props => props.theme.transitionSpeed.default} ease;
+	transition: all ${(props) => props.theme.transitionSpeed.default} ease;
 
-	@media ${props => props.theme.mediaBreakpoints.tabletMedium}
-	{
+	@media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
 		grid-column: 8 / -1;
 		text-align: right;
 	}
 
-	@media ${props => props.theme.mediaBreakpoints.mobile}
-	{
+	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		grid-column: 3 / -1;
 	}
 
-	&:hover
-	{
-		color: ${props => props.theme.colours.black};
+	&:hover {
+		color: ${(props) => props.theme.colours.black};
 	}
 `;
 
@@ -70,8 +67,7 @@ const VideoWrapper = styled.section`
 	grid-column: 1 / -1;
 	margin-bottom: 25px;
 
-	@media ${props => props.theme.mediaBreakpoints.mobile}
-	{
+	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		margin-bottom: 15px;
 	}
 `;
@@ -82,8 +78,7 @@ const Video = styled.div`
 	width: 100%;
 	padding-top: 56.25%;
 
-	iframe
-	{
+	iframe {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -104,13 +99,11 @@ const ImageWrapper = styled.div`
 	overflow: hidden;
 	margin-bottom: 25px;
 
-	@media ${props => props.theme.mediaBreakpoints.mobile}
-	{
+	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		margin-bottom: 13px;
 	}
 
-	img
-	{
+	img {
 		object-fit: cover;
 		height: 100%;
 		width: 100%;
@@ -122,8 +115,7 @@ const GoBack = styled.a`
 	margin: 100px 0 120px;
 	font-size: 1rem;
 
-	@media ${props => props.theme.mediaBreakpoints.mobile}
-	{
+	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		grid-column: 1 / -1;
 		margin: 40px 0 40px 0;
 	}
@@ -133,20 +125,18 @@ const WorkIndex = styled.div`
 	grid-column: 5 / 11;
 	margin: 100px 0 120px;
 
-	@media ${props => props.theme.mediaBreakpoints.tabletMedium}
-	{
+	@media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
 		grid-column: 5 / -1;
 	}
 
-	@media ${props => props.theme.mediaBreakpoints.mobile}
-	{
+	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		grid-column: 1 / -1;
 		margin: 0 0 60px 0;
 	}
 `;
 
 const WorkIndexTitle = styled.p`
-	color: ${props => props.theme.colours.grey};
+	color: ${(props) => props.theme.colours.grey};
 	margin-bottom: 10px;
 `;
 
@@ -154,13 +144,15 @@ const WorkList = styled.div``;
 
 const WorkItem = styled.a`
 	font-size: 1rem;
-	color: ${props => props.isWorkIndexHovered ? props.theme.colours.grey : props.theme.colours.black};
+	color: ${(props) =>
+		props.isWorkIndexHovered
+			? props.theme.colours.grey
+			: props.theme.colours.black};
 
-	transition: all ${props => props.theme.transitionSpeed.default} ease;
+	transition: all ${(props) => props.theme.transitionSpeed.default} ease;
 
-	&:hover
-	{
-		color: ${props => props.theme.colours.black};
+	&:hover {
+		color: ${(props) => props.theme.colours.black};
 	}
 `;
 
@@ -173,13 +165,14 @@ const CreditsOverlay = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: ${props => props.isOpen ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0)'};
-	backdrop-filter: ${props => props.isOpen ? 'blur(10px)' : 'blur(0)'};
-	opacity: ${props => props.isOpen ? 1 : 0};
-	visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+	background: ${(props) =>
+		props.isOpen ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0)'};
+	backdrop-filter: ${(props) => (props.isOpen ? 'blur(10px)' : 'blur(0)')};
+	opacity: ${(props) => (props.isOpen ? 1 : 0)};
+	visibility: ${(props) => (props.isOpen ? 'visible' : 'hidden')};
 	overflow-y: scroll;
 
-	transition: all ${props => props.theme.transitionSpeed.slow} ease;
+	transition: all ${(props) => props.theme.transitionSpeed.slow} ease;
 `;
 
 const RoleWrapper = styled.div`
@@ -195,14 +188,14 @@ const NameWrapper = styled.div`
 `;
 
 const Role = styled.p`
-	color: ${props => props.theme.colours.white};
+	color: ${(props) => props.theme.colours.white};
 	text-align: right;
 	display: flex;
 	flex-direction: column;
 `;
 
 const Name = styled.p`
-	color: ${props => props.theme.colours.white};
+	color: ${(props) => props.theme.colours.white};
 	display: flex;
 	flex-direction: column;
 `;
@@ -219,12 +212,12 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 	const handleOpenCredits = () => {
 		setIsOpen(true);
 		cursorRefresh();
-	}
+	};
 
 	const handleCloseCredits = () => {
 		setIsOpen(false);
 		cursorRefresh();
-	}
+	};
 
 	const { ref, inView } = useInView({
 		triggerOnce: true,
@@ -247,8 +240,12 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 					animate="visible"
 					exit="hidden"
 				>
-					<NextSeo 
-						title={data.title ? `${data.title} | Joey Knox Cinematography` : 'Joey Knox Cinematography'}
+					<NextSeo
+						title={
+							data.title
+								? `${data.title} | Joey Knox Cinematography`
+								: 'Joey Knox Cinematography'
+						}
 						description="Joey Knox is an award-winning Australian cinematographer working between commercials, music videos and narrative films."
 					/>
 					<InnerWrapper>
@@ -256,34 +253,45 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 							{data.title && (
 								<Title
 									className={`view-element-fade-in ${
-										inView ? 'view-element-fade-in--in-view' : ''
+										inView
+											? 'view-element-fade-in--in-view'
+											: ''
 									}`}
 								>
 									{data.title}
 								</Title>
 							)}
+
 							{data.date && (
 								<Date
 									className={`view-element-fade-in ${
-										inView ? 'view-element-fade-in--in-view' : ''
+										inView
+											? 'view-element-fade-in--in-view'
+											: ''
 									}`}
 								>
 									{data.date}
 								</Date>
 							)}
+
 							<CreditsTrigger
 								onClick={() => handleOpenCredits()}
 								className={`cursor-link view-element-fade-in ${
-									inView ? 'view-element-fade-in--in-view' : ''
+									inView
+										? 'view-element-fade-in--in-view'
+										: ''
 								}`}
 							>
 								See Credits
 							</CreditsTrigger>
+
 							{data.vimeo_embed && (
 								<VideoWrapper
 									ref={ref}
 									className={`cursor-hide view-element-bottom-top ${
-										inView ? 'view-element-bottom-top--in-view' : ''
+										inView
+											? 'view-element-bottom-top--in-view'
+											: ''
 									}`}
 								>
 									<Video
@@ -294,8 +302,9 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 									/>
 								</VideoWrapper>
 							)}
+
 							<StillsWrapper>
-								{data.stills && (
+								{data.stills &&
 									data.stills.map((item, index) => (
 										<ImageWrapper key={index}>
 											<Image
@@ -303,18 +312,19 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 												alt={item.image?.alt}
 											/>
 										</ImageWrapper>
-									))
-								)}
+									))}
 							</StillsWrapper>
 
 							<Link scroll={false} href="/#work" passHref>
 								<GoBack className="cursor-link">Go Back</GoBack>
 							</Link>
 
-							<WorkIndex
+							{/* <WorkIndex
 								ref={ref2}
 								className={`cursor-link view-element-fade-in ${
-									inView2 ? 'view-element-fade-in--in-view' : ''
+									inView2
+										? 'view-element-fade-in--in-view'
+										: ''
 								}`}
 							>
 								<WorkIndexTitle>Index</WorkIndexTitle>
@@ -333,50 +343,56 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 												onMouseOut={() =>
 													setIsWorkIndexHovered(false)
 												}
-												isWorkIndexHovered={isWorkIndexHovered}
+												isWorkIndexHovered={
+													isWorkIndexHovered
+												}
 											>
 												{item.node.title},{' '}
 											</WorkItem>
 										</Link>
 									))}
 								</WorkList>
-							</WorkIndex>
+							</WorkIndex> */}
 
-							{data.credits && (
+							{/* {data.credits && (
 								<CreditsOverlay
 									isOpen={isOpen}
 									onClick={() => handleCloseCredits()}
 									className="cursor-close"
 								>
 									<RoleWrapper>
-										{data.credits.map((item, index) => (
-											item.credit_title && (
-												<Role key={index}>
-													{item.credit_title}
-												</Role>
-											)
-										))}
+										{data.credits.map(
+											(item, index) =>
+												item.credit_title && (
+													<Role key={index}>
+														{item.credit_title}
+													</Role>
+												)
+										)}
 									</RoleWrapper>
 									<NameWrapper>
-										{data.credits.map((item, index) => (
-											item.credit_name && (
-												<Name key={index}>
-													{item.credit_name}
-												</Name>
-											)
-										))}
+										{data.credits.map(
+											(item, index) =>
+												item.credit_name && (
+													<Name key={index}>
+														{item.credit_name}
+													</Name>
+												)
+										)}
 									</NameWrapper>
 								</CreditsOverlay>
-							)}
-
+							)} */}
 						</Grid>
 					</InnerWrapper>
 				</Project>
 			)}
 		</>
 	);
-}
+};
 
+/**
+ *
+ */
 export async function getStaticPaths() {
 	const allWork = await getAllWork();
 
@@ -388,6 +404,9 @@ export async function getStaticPaths() {
 	};
 }
 
+/**
+ *
+ */
 export async function getStaticProps({ params }) {
 	const data = await getSingleWork(params.slug);
 	const work = await getAllWork();
