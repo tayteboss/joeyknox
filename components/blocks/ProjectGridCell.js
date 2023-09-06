@@ -107,7 +107,7 @@ const ProjectGridCell = ({ data }) => {
 						inView2 ? 'view-element-bottom-top--in-view' : ''
 					}`}
 				>
-					<Link href={`/${data.project._meta.uid}`} passHref>
+					<Link href={`/${data.project._meta.uid}`} passHref legacyBehavior>
 						<LinkTag>
 							<MediaWrapper
 								onMouseOver={() => setIsHovered(true)}

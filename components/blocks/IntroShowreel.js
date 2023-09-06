@@ -93,7 +93,7 @@ const IntroShowreel = ({ data, hasVisited }) => {
 			{hasVisited ? (
 				<IntroShowreelWrapperHasVisited>
 					{data.showreel_snippet && (
-						<Link scroll={false} href="/showreel" passHref>
+						<Link scroll={false} href="/showreel" passHref legacyBehavior>
 							<LinkTag>
 								<ReactPlayer
 									width="100vw"
@@ -123,7 +123,7 @@ const IntroShowreel = ({ data, hasVisited }) => {
 					animate="visible"
 				>
 					{data.showreel_snippet && (
-						<Link scroll={false} href="/showreel" passHref>
+						<Link scroll={false} href="/showreel" passHref legacyBehavior>
 							<LinkTag>
 								<ReactPlayer
 									width="100vw"

@@ -74,7 +74,7 @@ const ProjectListCell = ({ data, dataLength, index }) => {
 					onMouseOut={() => setIsHovered(false)}
 					className="cursor-link"
 				>
-					<Link scroll={false} href={`/${data.project._meta.uid}`} passHref>
+					<Link scroll={false} href={`/${data.project._meta.uid}`} passHref legacyBehavior>
 						<LinkTag>
 							<ProjectTitle className="cursor-link" isHovered={isHovered}>
 								{data.project.title}{index === dataLength - 1 ? '' : ', '}

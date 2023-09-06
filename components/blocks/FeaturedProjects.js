@@ -205,7 +205,7 @@ const FeaturedProjects = ({ data }) => {
 											variants={childVariants}
 										>
 
-											<Link scroll={false} href={`/${item.project?._meta.uid}`} passHref>
+											<Link scroll={false} href={`/${item.project?._meta.uid}`} passHref legacyBehavior>
 												<LinkTag>
 													<MediaWrapper>
 														{item.project?.video_snippet && (

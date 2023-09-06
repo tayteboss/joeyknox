@@ -315,11 +315,11 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 									))}
 							</StillsWrapper>
 
-							<Link scroll={false} href="/#work" passHref>
-								<GoBack className="cursor-link">Go Back</GoBack>
+							<Link scroll={false} href="/#work" passHref legacyBehavior>
+								<GoBack legacyBehavior className="cursor-link">Go Back</GoBack>
 							</Link>
 
-							{/* <WorkIndex
+							<WorkIndex
 								ref={ref2}
 								className={`cursor-link view-element-fade-in ${
 									inView2
@@ -334,6 +334,7 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 											key={index}
 											passHref
 											href={item.node._meta.uid}
+											legacyBehavior
 										>
 											<WorkItem
 												className="cursor-link"
@@ -352,9 +353,9 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 										</Link>
 									))}
 								</WorkList>
-							</WorkIndex> */}
+							</WorkIndex>
 
-							{/* {data.credits && (
+							{data.credits && (
 								<CreditsOverlay
 									isOpen={isOpen}
 									onClick={() => handleCloseCredits()}
@@ -381,7 +382,7 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 										)}
 									</NameWrapper>
 								</CreditsOverlay>
-							)} */}
+							)}
 						</Grid>
 					</InnerWrapper>
 				</Project>
@@ -410,13 +411,11 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
 	const data = await getSingleWork(params.slug);
 	const work = await getAllWork();
-	const options = await getSiteOptions();
 
 	return {
 		props: {
 			data: data,
 			work: work,
-			option: options
 		}
 	};
 }

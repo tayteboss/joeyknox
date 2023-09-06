@@ -271,7 +271,7 @@ export default function Header({ siteOptions, work, hasVisited }) {
 					>
 						<InnerWrapper>
 							<Grid align="center">
-								<Link scroll={false} href="/" passHref>
+								<Link scroll={false} href="/" passHref legacyBehavior>
 									<LinkTag>
 										<Logo
 											className="cursor-link"
@@ -298,7 +298,7 @@ export default function Header({ siteOptions, work, hasVisited }) {
 						>
 
 							<MenuList>
-								<Link href="/" passHref>
+								<Link href="/" passHref legacyBehavior>
 									<MenuItem
 										className="cursor-link"
 										variants={childVariant}
@@ -307,7 +307,7 @@ export default function Header({ siteOptions, work, hasVisited }) {
 										Home
 									</MenuItem>
 								</Link>
-								<Link scroll={false} href="/showreel" passHref>
+								<Link scroll={false} href="/showreel" passHref legacyBehavior>
 									<MenuItem
 										className="cursor-link"
 										variants={childVariant}
