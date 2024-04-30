@@ -12,6 +12,7 @@ import Image from '../components/elements/Image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { NextSeo } from 'next-seo';
+import ReactPlayer from 'react-player';
 
 const Project = styled(motion.div)`
 	padding-top: 246px;
@@ -200,6 +201,19 @@ const Name = styled.p`
 	flex-direction: column;
 `;
 
+const ControlsWrapper = styled.div`
+	position: absolute;
+	bottom: 16px;
+	left: 16px;
+	color: white;
+	mix-blend-mode: difference;
+	cursor: pointer;
+`;
+
+const PlayTrigger = styled.button`
+	color: white;
+`;
+
 const pageTransitionVariants = {
 	hidden: { opacity: 0, transition: { duration: 0.5 } },
 	visible: { opacity: 1, transition: { duration: 0.5 } }
@@ -208,6 +222,7 @@ const pageTransitionVariants = {
 const Page = ({ data, work, cursorRefresh, options }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isWorkIndexHovered, setIsWorkIndexHovered] = useState(false);
+	const [isPlaying, setIsPlaying] = useState(false);
 
 	const handleOpenCredits = () => {
 		setIsOpen(true);
@@ -284,8 +299,7 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 							>
 								See Credits
 							</CreditsTrigger>
-
-							{data.vimeo_embed && (
+							{data?.vimeo_embed && (
 								<VideoWrapper
 									ref={ref}
 									className={`cursor-hide view-element-bottom-top ${
@@ -302,6 +316,42 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 									/>
 								</VideoWrapper>
 							)}
+							{data?.video_file && (
+								<VideoWrapper
+									ref={ref}
+									className={`cursor-link view-element-bottom-top ${
+										inView
+											? 'view-element-bottom-top--in-view'
+											: ''
+									}`}
+									onClick={() => setIsPlaying(!isPlaying)}
+								>
+									<ReactPlayer
+										width="100%"
+										height="100%"
+										playing={isPlaying}
+										loop={true}
+										muted={false}
+										url={data.video_file?.url}
+										playsInline
+										config={{
+											file: {
+												attributes: {
+													poster: data.thumbnail.url
+												}
+											}
+										}}
+									/>
+									<ControlsWrapper
+										onClick={() => setIsPlaying(!isPlaying)}
+										className="cursor-link"
+									>
+										<PlayTrigger>
+											{isPlaying ? 'Pause' : 'Play'}
+										</PlayTrigger>
+									</ControlsWrapper>
+								</VideoWrapper>
+							)}
 
 							<StillsWrapper>
 								{data.stills &&
@@ -315,8 +365,15 @@ const Page = ({ data, work, cursorRefresh, options }) => {
 									))}
 							</StillsWrapper>
 
-							<Link scroll={false} href="/#work" passHref legacyBehavior>
-								<GoBack legacyBehavior className="cursor-link">Go Back</GoBack>
+							<Link
+								scroll={false}
+								href="/#work"
+								passHref
+								legacyBehavior
+							>
+								<GoBack legacyBehavior className="cursor-link">
+									Go Back
+								</GoBack>
 							</Link>
 
 							<WorkIndex
@@ -415,7 +472,7 @@ export async function getStaticProps({ params }) {
 	return {
 		props: {
 			data: data,
-			work: work,
+			work: work
 		}
 	};
 }
